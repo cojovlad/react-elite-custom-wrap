@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111110" />
+    <meta
+      name="description"
+      content="An individual expression, a meticulous finish. Explore premium vehicle wrapping, paint protection and a live, panel-by-panel wrap configurator at Elite Custom Wrap."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Elite Custom Wrap — Your car. Your signature.</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#configurator">Skip to the configurator</a>
+    <header class="header">
+      <a class="wordmark" href="#" aria-label="Elite Custom Wrap home"
+        ><span class="brand-symbol" aria-hidden="true">E</span
+        ><span>ELITE<span class="wordmark-sub">CUSTOM WRAP</span></span></a
+      >
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#configurator">The configurator</a>
+        <a href="#services">Our craft</a>
+        <a href="#collection">The collection</a>
+      </nav>
+      <div class="header-actions">
+        <label class="language-switch">
+          <svg
+            class="language-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.4"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="12" cy="12" r="9"></circle>
+            <ellipse cx="12" cy="12" rx="4" ry="9"></ellipse>
+            <path d="M3 12h18"></path>
+          </svg>
+          <span class="sr-only" id="language-label">Language</span>
+          <select id="language-select" aria-labelledby="language-label">
+            <option value="en" lang="en">English</option>
+            <option value="ro" lang="ro">Română</option>
+            <option value="de" lang="de">Deutsch</option>
+            <option value="es" lang="es">Español</option>
+            <option value="it" lang="it">Italiano</option>
+            <option value="hu" lang="hu">Magyar</option>
+          </select>
+        </label>
+        <button class="button button-small header-cta" data-consult>
+          Let's create <span aria-hidden="true">&#8599;</span>
+        </button>
+        <button
+          class="menu-toggle"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <span></span><span></span>
+        </button>
+      </div>
+    </header>
+    <nav
+      id="mobile-nav"
+      class="mobile-nav"
+      aria-label="Mobile navigation"
+      hidden
+    >
+      <a href="#configurator">The configurator</a
+      ><a href="#services">Our craft</a><a href="#collection">The collection</a
+      ><button data-consult>Start your project &#8599;</button>
+    </nav>
+    <main>
+      <section
+        id="configurator"
+        class="configurator page-width"
+        aria-label="Interactive vehicle wrap configurator"
+      >
+        <div class="config-top">
+          <div>
+            <span class="live-dot"></span
+            ><span class="eyebrow">THE DESIGN STUDIO</span>
+          </div>
+          <span class="config-top-note">YOUR VISION. IN REAL TIME.</span
+          ><span class="studio-number">01 / 04</span>
+        </div>
+        <div
+          class="vehicle-tabs"
+          role="group"
+          aria-label="Choose vehicle brand"
+          id="vehicle-tabs"
+        ></div>
+        <div class="catalog-controls">
+          <label for="model-select"
+            >Choose your model
+            <select id="model-select"></select
+          ></label>
+          <label for="vehicle-search"
+            >Find a vehicle
+            <input
+              id="vehicle-search"
+              type="search"
+              placeholder="Search brand or model"
+              autocomplete="off"
+          /></label>
+          <span id="catalog-count" role="status" aria-live="polite"></span>
+        </div>
+        <div class="config-layout">
+          <div class="stage">
+            <div class="stage-label">
+              <p id="vehicle-brand" class="eyebrow"></p>
+              <h2 id="vehicle-model"></h2>
+              <p id="vehicle-type"></p>
+            </div>
+            <div class="studio-signature" aria-hidden="true">
+              <span>ELITE CUSTOM WRAP</span><span>THE WRAPPING ROOM / 01</span>
+            </div>
+            <div
+              id="car-canvas"
+              role="img"
+              aria-label="Interactive 3D vehicle preview. Drag to rotate; use the controls to select and color panels."
+            ></div>
+            <div id="scene-error" class="scene-error" hidden>
+              <span aria-hidden="true">&#9671;</span>
+              <h3>The vehicle preview is unavailable.</h3>
+              <p>
+                Check your connection, reload, and use a browser with hardware
+                acceleration enabled. You can still export your design brief.
+              </p>
+            </div>
+            <div class="stage-actions">
+              <button
+                id="rotate"
+                class="icon-button"
+                aria-label="Enable automatic rotation"
+                aria-pressed="false"
+                title="Auto rotate"
+              >
+                &#10227;</button
+              ><button
+                id="reset-view"
+                class="icon-button"
+                aria-label="Reset camera view"
+                title="Reset view"
+              >
+                &#8634;</button
+              ><button
+                id="download-preview"
+                class="icon-button"
+                aria-label="Download car preview as PNG"
+                title="Download preview"
+              >
+                &#8595;
+              </button>
+            </div>
+            <div class="stage-bottom">
+              <span class="drag-hint"
+                ><span aria-hidden="true">&#8596;</span> DRAG TO EXPLORE
+                <span class="hint-divider">/</span> TAP A PANEL</span
+              >
+              <div class="view-tabs" role="group" aria-label="Camera view">
+                <button
+                  data-view="perspective"
+                  class="active"
+                  aria-pressed="true"
+                >
+                  3/4</button
+                ><button data-view="side" aria-pressed="false">Side</button
+                ><button data-view="front" aria-pressed="false">Front</button
+                ><button data-view="rear" aria-pressed="false">Rear</button>
+              </div>
+            </div>
+          </div>
+          <aside class="design-panel" aria-label="Wrap design controls">
+            <div class="panel-heading">
+              <span class="eyebrow">MAKE IT PERSONAL</span
+              ><button id="reset-design" class="reset-link">Reset</button>
+            </div>
+            <h3>A finish like no other.</h3>
+            <div class="control-group">
+              <div class="control-label">
+                <span>01</span><label for="part-select">Choose a surface</label>
+              </div>
+              <select id="part-select"></select>
+              <p class="control-help">One panel. Or a whole new identity.</p>
+            </div>
+            <div class="control-group">
+              <div class="control-label">
+                <span>02</span><span id="color-label">Bone white</span>
+              </div>
+              <div
+                id="swatches"
+                class="swatches"
+                role="group"
+                aria-label="Wrap colors"
+              ></div>
+              <label class="custom-color" for="custom-color"
+                ><span class="custom-color-icon" aria-hidden="true">+</span>Find
+                your own shade<input
+                  id="custom-color"
+                  type="color"
+                  value="#e8e2d6"
+                  aria-label="Choose a custom wrap color"
+                /><span id="hex-value">#E8E2D6</span></label
+              >
+            </div>
+            <div class="control-group finish-group">
+              <div class="control-label">
+                <span>03</span><span>Choose a finish</span>
+              </div>
+              <div class="finish-tabs" role="group" aria-label="Wrap finish">
+                <button data-finish="gloss" class="active" aria-pressed="true">
+                  Gloss</button
+                ><button data-finish="satin" aria-pressed="false">Satin</button
+                ><button data-finish="matte" aria-pressed="false">Matte</button>
+              </div>
+            </div>
+            <label class="apply-all"
+              ><input id="apply-all" type="checkbox" /><span
+                >Apply color to all painted panels</span
+              ></label
+            >
+            <div class="design-summary">
+              <span>Your selection</span
+              ><strong id="selection-summary">Bone white / Gloss</strong>
+            </div>
+            <button class="button button-dark design-cta" data-consult>
+              Bring this design to life <span aria-hidden="true">&#8599;</span>
+            </button>
+            <div class="panel-footer">
+              <button id="share-design">Share design &#8599;</button
+              ><span>VISUAL CONCEPT</span>
+            </div>
+          </aside>
+        </div>
+        <div class="config-foot">
+          <p>
+            <span aria-hidden="true">&#9671;</span>
+            <span id="model-credit">Licensed real vehicle models.</span>
+            <a
+              href="/models/attributions.json"
+              target="_blank"
+              rel="noopener noreferrer"
+              >All authors, licenses &amp; modifications</a
+            >. Panel regions and vinyl colors are approximate.
+          </p>
+          <button id="other-vehicle">
+            Don't see your car? <span aria-hidden="true">&#8599;</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="hero page-width">
+        <div class="hero-heading">
+          <p class="eyebrow">
+            <span class="tiny-line"></span> AUTOMOTIVE INDIVIDUALITY
+          </p>
+          <h1>Your car.<br />Your <em>signature.</em></h1>
+        </div>
+        <div class="hero-intro">
+          <span class="edition">EST. FOR THE EXTRAORDINARY</span>
+          <p>
+            Not another car on the road.<br />A reflection of you. Precision
+            wrapping,<br class="desktop-break" />
+            without compromise.
+          </p>
+          <a class="text-link" href="#configurator"
+            >Make it yours <span aria-hidden="true">&#8599;</span></a
+          >
+        </div>
+      </section>
+
+      <section class="brand-strip page-width" aria-label="Vehicle brands">
+        <span>EVERY MARQUE.<br />ONE STANDARD.</span>
+        <p>Mercedes-Benz</p>
+        <p>BMW</p>
+        <p>Audi</p>
+        <p>Porsche</p>
+        <p>Range Rover</p>
+        <p>Lamborghini</p>
+      </section>
+      <section id="services" class="services page-width">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">02 / THE CRAFT</p>
+            <h2>Details make<br />the <em>difference.</em></h2>
+          </div>
+          <p>
+            Beauty is in the finish.<br />Excellence is in everything
+            underneath.
+          </p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <span class="service-index">01</span>
+            <div class="service-art art-wrap" aria-hidden="true">
+              <div></div>
+              <div></div>
+            </div>
+            <h3>Color change wraps</h3>
+            <p>
+              A complete transformation. Carefully fitted vinyl, considered
+              colors, and an identity that is unmistakably yours.
+            </p>
+            <button class="text-link" data-service="Color change wrap">
+              Explore your color <span aria-hidden="true">&#8599;</span>
+            </button>
+          </article>
+          <article class="service-card">
+            <span class="service-index">02</span>
+            <div class="service-art art-shield" aria-hidden="true">
+              <div></div>
+              <div></div>
+            </div>
+            <h3>Paint protection film</h3>
+            <p>
+              Protection, without distraction. A transparent barrier designed to
+              help preserve the paint you love.
+            </p>
+            <button class="text-link" data-service="Paint protection film">
+              Protect your investment <span aria-hidden="true">&#8599;</span>
+            </button>
+          </article>
+          <article class="service-card">
+            <span class="service-index">03</span>
+            <div class="service-art art-detail" aria-hidden="true">
+              <div></div>
+              <div></div>
+            </div>
+            <h3>Bespoke details</h3>
+            <p>
+              Roof accents. Mirror caps. Contrasting panels. Sometimes the
+              smallest change makes the boldest statement.
+            </p>
+            <button class="text-link" data-service="Bespoke details">
+              Consider the details <span aria-hidden="true">&#8599;</span>
+            </button>
+          </article>
+        </div>
+      </section>
+      <section id="collection" class="collection">
+        <div class="page-width">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">03 / SIGNATURE PALETTES</p>
+              <h2>Quietly <em>bold.</em><br />Unmistakably you.</h2>
+            </div>
+            <p>
+              A few directions. Endless possibilities.<br />Load a palette and
+              make it your own.
+            </p>
+          </div>
+          <div class="collection-grid">
+            <button class="palette-card" data-preset="monochrome">
+              <div class="palette-art palette-bone">
+                <span class="palette-orbit"></span
+                ><span class="palette-fold"></span
+                ><span class="palette-caption">01 / GLOSS</span
+                ><span class="palette-arrow" aria-hidden="true">&#8599;</span>
+              </div>
+              <div class="palette-description">
+                <h3>The Monochrome</h3>
+                <span>Bone white. Piano black.</span>
+              </div>
+            </button>
+            <button class="palette-card" data-preset="stealth">
+              <div class="palette-art palette-black">
+                <span class="palette-orbit"></span
+                ><span class="palette-fold"></span
+                ><span class="palette-caption">02 / MATTE</span
+                ><span class="palette-arrow" aria-hidden="true">&#8599;</span>
+              </div>
+              <div class="palette-description">
+                <h3>After Hours</h3>
+                <span>Deep black. Subtle presence.</span>
+              </div>
+            </button>
+            <button class="palette-card" data-preset="green">
+              <div class="palette-art palette-green">
+                <span class="palette-orbit"></span
+                ><span class="palette-fold"></span
+                ><span class="palette-caption">03 / SATIN</span
+                ><span class="palette-arrow" aria-hidden="true">&#8599;</span>
+              </div>
+              <div class="palette-description">
+                <h3>British Reserve</h3>
+                <span>Racing green. Champagne accents.</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="process page-width">
+        <div>
+          <p class="eyebrow">A CONSIDERED PROCESS</p>
+          <h2>From a thought.<br />To a <em>statement.</em></h2>
+        </div>
+        <ol>
+          <li>
+            <span>01</span>
+            <div>
+              <h3>Imagine it</h3>
+              <p>
+                Explore your vehicle, palette, and finish in our design studio.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <h3>Make it precise</h3>
+              <p>
+                Discuss your vehicle and compare physical material samples
+                before deciding.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <h3>Make it yours</h3>
+              <p>
+                Agree the scope, preparation, and installation details with the
+                studio.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+      <section class="faq page-width">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">GOOD TO KNOW</p>
+            <h2>A little <em>clarity.</em></h2>
+          </div>
+        </div>
+        <details>
+          <summary>
+            Can I configure my exact car model?<span aria-hidden="true">+</span>
+          </summary>
+          <p>
+            Choose a brand, then a model, or search the available catalog. Every
+            listed vehicle has a real 3D model; there are no placeholder cars.
+            Luxury and performance marques appear first. Panel colors use
+            approximate spatial regions, not exact manufacturer boundaries. A
+            roadster's rear deck replaces the roof selection. If your vehicle is
+            not listed, include its make, model, and year in your brief.
+          </p>
+        </details>
+        <details>
+          <summary>
+            Will my wrap look exactly like the preview?<span aria-hidden="true"
+              >+</span
+            >
+          </summary>
+          <p>
+            The preview helps you explore a direction. Screens, lighting, and
+            different vinyl materials affect color and finish. Always confirm
+            your selection using physical samples before installation.
+          </p>
+        </details>
+        <details>
+          <summary>
+            Can I wrap only selected parts?<span aria-hidden="true">+</span>
+          </summary>
+          <p>
+            Yes. Experiment with the hood, roof, mirrors, body, wheels, and
+            accents independently in the studio. Wheel colors are styling
+            references; discuss the appropriate refinishing method separately.
+            The actual scope and suitability are confirmed during consultation.
+          </p>
+        </details>
+        <details>
+          <summary>
+            How do I get a quote or book an installation?<span
+              aria-hidden="true"
+              >+</span
+            >
+          </summary>
+          <p>
+            Create a consultation brief with your design and vehicle details.
+            Download it, then use the linked Google business profile to find
+            contact details and discuss your project. This website does not send
+            bookings or messages, and pricing is confirmed directly with the
+            business.
+          </p>
+        </details>
+      </section>
+      <section class="contact-section page-width">
+        <p class="eyebrow">04 / YOUR NEXT CHAPTER</p>
+        <h2>Some cars turn heads.<br /><em>Yours should stay in them.</em></h2>
+        <button class="button" data-consult>
+          Let's create something exceptional
+          <span aria-hidden="true">&#8599;</span>
+        </button>
+        <div class="contact-links">
+          <a
+            id="instagram-link"
+            href="https://www.instagram.com/reel/DeqMPN2TXzS/?cplk=cGZiM2hzZGQ0eDVl"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View the design inspiration &#8599;</a
+          ><a
+            href="https://www.google.com/maps/search/?api=1&amp;query=Car+wrapping&amp;query_place_id=ChIJwdTFXg0LSUcRJOha7a3XNB0"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Find the business on Google Maps &#8599;</a
+          ><a
+            href="https://search.google.com/local/writereview?placeid=ChIJwdTFXg0LSUcRJOha7a3XNB0"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Leave a Google review &#8599;</a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="footer page-width">
+      <a class="wordmark" href="#"
+        ><span class="brand-symbol" aria-hidden="true">E</span
+        ><span>ELITE<span class="wordmark-sub">CUSTOM WRAP</span></span></a
+      >
+      <p>Individuality. In every detail.</p>
+      <span>&copy; <span id="year"></span> Elite Custom Wrap</span>
+    </footer>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <dialog
+      id="consult-dialog"
+      class="consult-dialog"
+      aria-labelledby="dialog-title"
+    >
+      <div class="dialog-top">
+        <span class="eyebrow">YOUR VISION STARTS HERE</span
+        ><button
+          id="close-dialog"
+          class="icon-button"
+          aria-label="Close consultation form"
+        >
+          &#10005;
+        </button>
+      </div>
+      <h2 id="dialog-title">Let's make it <em>yours.</em></h2>
+      <p class="dialog-intro">
+        Create a brief to share with the studio. Nothing is sent automatically.
+      </p>
+      <div id="brief-summary" class="brief-summary"></div>
+      <form id="consult-form">
+        <div class="form-row">
+          <label
+            >Your name<input
+              name="name"
+              autocomplete="name"
+              placeholder="Full name"
+              maxlength="100"
+              required /></label
+          ><label
+            >Email<input
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              maxlength="180"
+              required
+          /></label>
+        </div>
+        <label
+          >Your vehicle<input
+            name="vehicle"
+            id="consult-vehicle"
+            placeholder="Make, model, year"
+            maxlength="160"
+            required
+        /></label>
+        <label
+          >What do you have in mind?<textarea
+            name="notes"
+            id="consult-notes"
+            rows="3"
+            placeholder="Tell us about your car, the desired scope, or a material you love."
+            maxlength="2000"
+          ></textarea>
+        </label>
+        <p class="privacy-note">
+          Your details stay in this browser and the file you download. No
+          personal data is uploaded. A design brief is not a booking or a
+          confirmed quote.
+        </p>
+        <button type="submit" class="button button-dark">
+          Download consultation brief <span aria-hidden="true">&#8595;</span>
+        </button>
+      </form>
+      <div id="brief-success" class="brief-success" hidden>
+        <h3>Your brief is ready.</h3>
+        <p>
+          Use the linked Google business profile to find contact details, then
+          share your downloaded brief with the business. No request has been
+          sent from this site.
+        </p>
+        <a
+          class="button button-dark"
+          href="https://www.google.com/maps/search/?api=1&amp;query=Car+wrapping&amp;query_place_id=ChIJwdTFXg0LSUcRJOha7a3XNB0"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Open business profile &#8599;</a
+        ><button id="edit-brief" class="reset-link">Edit your brief</button>
+      </div>
+    </dialog>
+    <dialog
+      id="share-dialog"
+      class="share-dialog"
+      aria-labelledby="share-title"
+    >
+      <div class="dialog-top">
+        <h2 id="share-title">Your design link</h2>
+        <button
+          id="close-share"
+          class="icon-button"
+          aria-label="Close share link"
+        >
+          &#10005;
+        </button>
+      </div>
+      <p>Copy this link to reopen the same car, panel colors, and finish.</p>
+      <label>Design URL<input id="share-url" type="text" readonly /></label
+      ><button id="copy-link" class="button button-dark">
+        Copy link &#8599;
+      </button>
+    </dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
