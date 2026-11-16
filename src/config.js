@@ -6,5 +6,5 @@
 export const CONTACT = {
   whatsapp: '40773239125',
   whatsappDisplay: '+40 773 239 125',
-  email: '',
+  email: 'elite.custom_cluj@yahoo.com',
 };

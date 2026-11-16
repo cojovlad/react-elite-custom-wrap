@@ -24,7 +24,6 @@ import {
   PAINTED,
   PLAY_COLORS,
   PLAY_MATERIALS,
-  PRESETS,
   validateDesign,
   validHex,
 } from './design.js';
@@ -44,6 +43,11 @@ import { notify, translateToast } from './toast.js';
 import { initWhatsappFloat, scheduleWhatsappYield } from './whatsapp-float.js';
 import { initNavigation, translateNavigation } from './navigation.js';
 import { registerServiceWorker } from './service-worker-client.js';
+import {
+  initPaletteShowcase,
+  paletteFilms,
+  renderPaletteText,
+} from './palette-showcase.js';
 
 await loadTranslations();
 
@@ -281,6 +285,7 @@ function renderLocalizedText(scope) {
     renderRequestResult();
   if ($('#consult-dialog').open && root.contains($('#brief-summary')))
     updateBriefSummary();
+  renderPaletteText(scope);
 }
 
 // Keeps the active brand visible in a long, horizontally scrolling strip
@@ -588,6 +593,7 @@ function showSceneError(error) {
 }
 
 translateStatic();
+initPaletteShowcase();
 $('#language-select').value = getLocale();
 restoreDesign();
 $('#year').textContent = new Date().getFullYear();
@@ -868,7 +874,7 @@ document.querySelectorAll('[data-preset]').forEach((button) => {
   button.addEventListener('click', () => {
     state = {
       vehicle: state.vehicle,
-      ...designFromFilms(PRESETS[button.dataset.preset]),
+      ...designFromFilms(paletteFilms(button.dataset.preset)),
     };
     selectedPart = 'body';
     applyDesign();

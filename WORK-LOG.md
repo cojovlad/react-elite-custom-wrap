@@ -44,7 +44,7 @@
 - Desktop: static WhatsApp link in the page. Phone: floating WhatsApp button that can be closed and comes back on refresh.
 - Request form sends a prefilled WhatsApp message with the name, contact, vehicle, services, finish, every part colour, notes and the design link.
 - "Did you find your car on the site?" question: if not, the customer types their real car and the message uses it (site model is only mentioned as the preview).
-- Email sending via FormSubmit is ready but switched off until the business email is added in `src/config.js`.
+- Business email `elite.custom_cluj@yahoo.com` (`src/config.js`): each request is also sent there through FormSubmit, it is shown in the contact section and in the structured data.
 - Downloadable request brief.
 
 ## Content
@@ -97,9 +97,16 @@
 - Fixed: FAQ structured data questions had a stray " +" at the end.
 - Verified identical behaviour with a before/after snapshot of the built site (all 6 languages, desktop and mobile, configurator, film catalogue, form and WhatsApp message, share link): 0 differences.
 
+## Signature palettes that suggest finishes
+
+- Section "Signature palettes" now rotates by itself every 8 s through 8 finish directions: Signature, Gloss, Matte, Satin, Metallic, Pearl & flip, Metal & carbon, Coloured PPF. Each shows 3 palettes made only from the studio's real films (`src/palettes.js`), with matching card art and colour dots.
+- Rotation pauses on hover/focus or when the section is off screen, stops after a chip is clicked and is off with reduced motion. Clicking a card loads the palette in the configurator.
+- "Front PPF" added as its own card (03) in the services section (5 cards now), to the request form services, the WhatsApp/email message and the structured data.
+- Missing "Pearl" finish translation added. Tests: 25 unit, 7 e2e scenarios.
+
 ## Still to do
 
-- Add the business email in `src/config.js` and confirm the FormSubmit activation email.
+- The first request sends a FormSubmit activation email to `elite.custom_cluj@yahoo.com`; click "Activate Form" in it, otherwise emails are not delivered (WhatsApp works regardless).
 - Add the real domain (canonical URL, sitemap, Open Graph image) and the business address/Instagram to the structured data.
 - Buy/confirm licences for the NC/SA models listed in `attributions.json`.
 - More Romanian-popular models (Skoda, more Dacia, VW SUVs, Opel Astra, Toyota RAV4).

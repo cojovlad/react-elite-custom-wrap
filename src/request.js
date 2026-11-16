@@ -6,6 +6,7 @@ import { getLocale, languages, t } from './i18n.js';
 export const SERVICES = [
   'Color change wrap',
   'Paint protection film',
+  'Front PPF',
   'Chrome delete',
   'Bespoke details',
 ];

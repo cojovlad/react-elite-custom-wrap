@@ -1041,12 +1041,12 @@ svg {
 }
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   border-top: 1px solid var(--line);
 }
 .service-card {
   position: relative;
-  padding: 32px 30px 0;
+  padding: 32px 24px 0;
   border-right: 1px solid var(--line);
 }
 .service-card:first-child {
@@ -1138,6 +1138,39 @@ svg {
   clip-path: polygon(50% 0, 95% 20%, 90% 70%, 50% 100%, 10% 70%, 5% 20%);
   background: linear-gradient(125deg, #b6b8a222, #aaaa9933, transparent);
   transform: rotate(10deg);
+}
+.art-front div:first-child {
+  width: 150px;
+  height: 58px;
+  left: calc(50% - 75px);
+  top: 54px;
+  border-radius: 58% 42% 22% 22% / 78% 70% 30% 30%;
+  background: linear-gradient(
+    172deg,
+    #6b6e62,
+    #262a22 30%,
+    #12150f 72%,
+    #090b08
+  );
+  box-shadow: 0 22px 22px #0009;
+  transform: rotate(-6deg);
+}
+.art-front div:last-child {
+  width: 92px;
+  height: 66px;
+  left: calc(50% - 82px);
+  top: 47px;
+  border-radius: 64% 20% 18% 30% / 82% 40% 30% 34%;
+  border: 1px solid #e8e2d670;
+  border-right-color: #e8e2d6c0;
+  background: linear-gradient(
+    118deg,
+    #e8e2d60d 20%,
+    #f4efe466 44%,
+    #e8e2d614 52%,
+    #e8e2d626
+  );
+  transform: rotate(-6deg);
 }
 .art-detail div:first-child {
   height: 70px;
@@ -1307,6 +1340,105 @@ svg {
 .palette-description > span {
   font-size: 10px;
   color: #5f5c52;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  line-height: 1.5;
+  min-height: 3em;
+}
+.palette-description h3 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.palette-directions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -16px 0 28px;
+}
+.palette-directions button {
+  position: relative;
+  overflow: hidden;
+  padding: 10px 14px;
+  border: 1px solid #c3bba9;
+  color: #3b3a33;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s,
+    color 0.25s;
+}
+.palette-directions button:hover {
+  border-color: #24251f;
+}
+.palette-directions button.active {
+  background: #24251f;
+  border-color: #24251f;
+  color: var(--bone);
+}
+.palette-directions button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #b4a086;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.palette-directions.is-playing button.active::after {
+  animation: palette-progress 8s linear forwards;
+}
+.palette-directions.is-paused button.active::after {
+  animation-play-state: paused;
+}
+@keyframes palette-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+.collection-grid .palette-art,
+.collection-grid .palette-description {
+  transition:
+    opacity 0.26s ease,
+    translate 0.26s ease;
+}
+.collection-grid.is-changing .palette-art,
+.collection-grid.is-changing .palette-description {
+  opacity: 0;
+  translate: 0 6px;
+}
+.palette-art.is-dark .palette-caption {
+  color: #c1c8b7;
+}
+.palette-dots {
+  position: absolute;
+  right: 20px;
+  bottom: 17px;
+  display: flex;
+}
+.palette-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #ffffff59;
+  box-shadow: 0 1px 3px #0004;
+}
+.palette-dots span + span {
+  margin-left: -3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .collection-grid .palette-art,
+  .collection-grid .palette-description {
+    transition: none;
+  }
 }
 .process {
   display: grid;
@@ -2702,6 +2834,9 @@ dialog textarea {
   margin: 0;
   font-size: 11px;
   cursor: pointer;
+}
+.service-options label:nth-of-type(odd):last-of-type {
+  grid-column: 1 / -1;
 }
 .service-options input {
   position: absolute;

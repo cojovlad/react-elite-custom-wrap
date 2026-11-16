@@ -4,6 +4,10 @@ test.beforeEach(async ({ page }) => {
   page.on('pageerror', (error) => {
     throw error;
   });
+  // Never email the studio from tests.
+  await page.route('https://formsubmit.co/**', (route) =>
+    route.fulfill({ json: { success: 'true' } }),
+  );
 });
 
 test('loads in Romanian and removes the skeleton', async ({ page }) => {
@@ -76,7 +80,12 @@ test('consultation form opens WhatsApp with the client car', async ({
   await form.locator('[name=ownCar]').fill('Dacia Logan 2019');
   await form.locator('label:has([name=services])').nth(1).click();
   await expect(form.locator('[name=services]').nth(1)).toBeChecked();
+  await form.locator('label:has([value="Front PPF"])').click();
+  const emailRequest = page.waitForRequest('https://formsubmit.co/**');
   await form.evaluate((element) => element.requestSubmit());
+  expect((await emailRequest).url()).toBe(
+    'https://formsubmit.co/ajax/elite.custom_cluj%40yahoo.com',
+  );
 
   await expect
     .poll(() => page.evaluate(() => window.__opened))
@@ -86,6 +95,20 @@ test('consultation form opens WhatsApp with the client car', async ({
   );
   expect(message).toContain('*Nume:* Ion Popescu');
   expect(message).toContain('*Vehicul:* Dacia Logan 2019 (previzualizare pe:');
+  expect(message).toContain(
+    '*Servicii:* Folie de protecție a vopselei, PPF frontal',
+  );
+});
+
+test('services section offers front PPF', async ({ page }) => {
+  await page.goto('/?lang=ro');
+  const card = page.locator('.service-card', { hasText: 'PPF frontal' });
+  await expect(card.locator('h3')).toHaveText('PPF frontal');
+  await card.locator('[data-service="Front PPF"]').click();
+  await expect(page.locator('#consult-dialog')).toBeVisible();
+  await expect(
+    page.locator('#consult-form [name=services][value="Front PPF"]'),
+  ).toBeChecked();
 });
 
 test('shared design link restores the design', async ({ page }) => {
@@ -99,4 +122,29 @@ test('shared design link restores the design', async ({ page }) => {
   await expect(page.locator('#selection-summary')).toHaveText(
     'Signal red · High gloss',
   );
+});
+
+test('signature palettes suggest finishes and load real films', async ({
+  page,
+}) => {
+  await page.goto('/?lang=ro');
+  const section = page.locator('#collection');
+  await section.scrollIntoViewIfNeeded();
+  // After a few seconds on screen the next finish is suggested.
+  await expect(
+    page.locator('[data-palette-direction="gloss"]'),
+  ).toHaveAttribute('aria-pressed', 'true', { timeout: 15_000 });
+  await expect(section.locator('.palette-card h3').first()).toHaveText(
+    'Nardo Classic',
+  );
+
+  await page.locator('[data-palette-direction="ppf"]').click();
+  const card = section.locator('.palette-card').first();
+  await expect(card.locator('h3')).toHaveText('Miami');
+  await expect(card.locator('.palette-caption')).toHaveText(
+    '01 / PPF · LUCIOS',
+  );
+  await card.click();
+  await expect(page.locator('#hex-value')).toHaveText('#00A3D9');
+  await expect(page.locator('#film-name')).toContainText('Miami Blue');
 });

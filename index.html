@@ -234,6 +234,7 @@
             "image": "/og-image.jpg",
             "logo": "/apple-touch-icon.png",
             "telephone": "+40773239125",
+            "email": "elite.custom_cluj@yahoo.com",
             "areaServed": { "@type": "Country", "name": "Romania" },
             "priceRange": "$$$",
             "currenciesAccepted": "RON, EUR",
@@ -242,6 +243,7 @@
             "contactPoint": {
               "@type": "ContactPoint",
               "telephone": "+40773239125",
+              "email": "elite.custom_cluj@yahoo.com",
               "contactType": "customer service",
               "availableLanguage": ["Romanian", "English"]
             },
@@ -263,6 +265,14 @@
                     "@type": "Service",
                     "name": "Paint protection film (PPF)",
                     "description": "Clear, matte stealth or coloured paint protection film."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Front PPF",
+                    "description": "Paint protection film for the front end: bumper, bonnet, wings and mirrors, the areas most exposed to stone chips."
                   }
                 },
                 {
@@ -729,6 +739,21 @@
           </article>
           <article class="service-card">
             <span class="service-index">03</span>
+            <div class="service-art art-front" aria-hidden="true">
+              <div></div>
+              <div></div>
+            </div>
+            <h3>Front PPF</h3>
+            <p>
+              Where the road hits first. Clear film on the bumper, bonnet, front
+              wings and mirrors, the areas most exposed to stone chips.
+            </p>
+            <button class="text-link" data-service="Front PPF">
+              Protect the front <span aria-hidden="true">&#8599;</span>
+            </button>
+          </article>
+          <article class="service-card">
+            <span class="service-index">04</span>
             <div class="service-art art-detail" aria-hidden="true">
               <div></div>
               <div></div>
@@ -743,7 +768,7 @@
             </button>
           </article>
           <article class="service-card">
-            <span class="service-index">04</span>
+            <span class="service-index">05</span>
             <div class="service-art art-chrome" aria-hidden="true">
               <div></div>
               <div></div>
@@ -771,13 +796,77 @@
               make it your own.
             </p>
           </div>
+          <div
+            class="palette-directions"
+            role="group"
+            aria-label="Suggestions by finish"
+          >
+            <button
+              type="button"
+              data-palette-direction="signature"
+              aria-pressed="true"
+              class="active"
+            >
+              Signature
+            </button>
+            <button
+              type="button"
+              data-palette-direction="gloss"
+              aria-pressed="false"
+            >
+              Gloss
+            </button>
+            <button
+              type="button"
+              data-palette-direction="matte"
+              aria-pressed="false"
+            >
+              Matte
+            </button>
+            <button
+              type="button"
+              data-palette-direction="satin"
+              aria-pressed="false"
+            >
+              Satin
+            </button>
+            <button
+              type="button"
+              data-palette-direction="metallic"
+              aria-pressed="false"
+            >
+              Metallic
+            </button>
+            <button
+              type="button"
+              data-palette-direction="pearl"
+              aria-pressed="false"
+            >
+              Pearl &amp; flip
+            </button>
+            <button
+              type="button"
+              data-palette-direction="special"
+              aria-pressed="false"
+            >
+              Metal &amp; carbon
+            </button>
+            <button
+              type="button"
+              data-palette-direction="ppf"
+              aria-pressed="false"
+            >
+              Coloured PPF
+            </button>
+          </div>
           <div class="collection-grid">
             <button class="palette-card" data-preset="monochrome">
               <div class="palette-art palette-bone">
                 <span class="palette-orbit"></span
                 ><span class="palette-fold"></span
                 ><span class="palette-caption">01 / GLOSS</span
-                ><span class="palette-arrow" aria-hidden="true">&#8599;</span>
+                ><span class="palette-arrow" aria-hidden="true">&#8599;</span
+                ><span class="palette-dots" aria-hidden="true"></span>
               </div>
               <div class="palette-description">
                 <h3>The Monochrome</h3>
@@ -789,7 +878,8 @@
                 <span class="palette-orbit"></span
                 ><span class="palette-fold"></span
                 ><span class="palette-caption">02 / MATTE</span
-                ><span class="palette-arrow" aria-hidden="true">&#8599;</span>
+                ><span class="palette-arrow" aria-hidden="true">&#8599;</span
+                ><span class="palette-dots" aria-hidden="true"></span>
               </div>
               <div class="palette-description">
                 <h3>After Hours</h3>
@@ -801,7 +891,8 @@
                 <span class="palette-orbit"></span
                 ><span class="palette-fold"></span
                 ><span class="palette-caption">03 / SATIN</span
-                ><span class="palette-arrow" aria-hidden="true">&#8599;</span>
+                ><span class="palette-arrow" aria-hidden="true">&#8599;</span
+                ><span class="palette-dots" aria-hidden="true"></span>
               </div>
               <div class="palette-description">
                 <h3>British Reserve</h3>
@@ -960,6 +1051,8 @@
             target="_blank"
             rel="noopener noreferrer"
             >Leave a Google review &#8599;</a
+          ><a href="mailto:elite.custom_cluj@yahoo.com"
+            >elite.custom_cluj@yahoo.com</a
           >
         </div>
       </section>
@@ -1115,6 +1208,10 @@
               name="services"
               value="Paint protection film"
             /><span>Paint protection film</span></label
+          ><label
+            ><input type="checkbox" name="services" value="Front PPF" /><span
+              >Front PPF</span
+            ></label
           ><label
             ><input
               type="checkbox"
