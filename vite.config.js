@@ -1,6 +1,12 @@
 import { defineConfig, loadEnv } from 'vite';
-import { appendFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import {
+  appendFileSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+import { join, relative, resolve, sep } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const LANGUAGES = ['en', 'ro', 'de', 'es', 'it', 'hu'];
 
@@ -32,7 +38,7 @@ function seo(siteUrl) {
         ),
       ].map(([, question, answer]) => ({
         '@type': 'Question',
-        name: text(question.replace(/<span[\s\S]*?<\/span>/g, '')),
+        name: text(question.replace(/<span[\s\S]*?<\/span\s*>/g, '')),
         acceptedAnswer: { '@type': 'Answer', text: text(answer) },
       }));
       const tags = [];
@@ -130,10 +136,90 @@ function security() {
   };
 }
 
+// Starts downloading every translation file together with the main script, so
+// they are ready by the time the page renders.
+function preloadTranslations() {
+  return {
+    name: 'elite-preload-translations',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler: (html, { bundle }) =>
+        Object.values(bundle ?? {})
+          .filter(
+            (chunk) =>
+              chunk.type === 'chunk' &&
+              /[\\/]src[\\/]locales[\\/]/.test(chunk.facadeModuleId ?? ''),
+          )
+          .map((chunk) => ({
+            tag: 'link',
+            attrs: {
+              rel: 'modulepreload',
+              crossorigin: true,
+              href: `/${chunk.fileName}`,
+            },
+            injectTo: 'head',
+          })),
+    },
+  };
+}
+
+// Writes dist/sw.js from src/sw-template.js with the content hash of every
+// model, decoder and font, so the cache never serves an outdated file.
+function serviceWorker() {
+  let outDir = 'dist';
+  let root = '.';
+  let assets = [];
+  const files = (dir) =>
+    readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
+      entry.isDirectory()
+        ? files(join(dir, entry.name))
+        : [join(dir, entry.name)],
+    );
+  return {
+    name: 'elite-service-worker',
+    apply: 'build',
+    configResolved(config) {
+      root = config.root;
+      outDir = resolve(config.root, config.build.outDir);
+    },
+    generateBundle(options, bundle) {
+      assets = Object.keys(bundle)
+        .filter((name) => name.startsWith('assets/'))
+        .map((name) => `/${name}`);
+    },
+    closeBundle() {
+      const versions = {};
+      for (const folder of ['models', 'decoders', 'fonts'])
+        for (const file of files(resolve(outDir, folder)))
+          versions[`/${relative(outDir, file).split(sep).join('/')}`] =
+            createHash('sha256')
+              .update(readFileSync(file))
+              .digest('hex')
+              .slice(0, 12);
+      const template = readFileSync(
+        resolve(root, 'src/sw-template.js'),
+        'utf8',
+      );
+      writeFileSync(
+        resolve(outDir, 'sw.js'),
+        template
+          .replace('self.__FILES__', JSON.stringify(versions))
+          .replace('self.__ASSETS__', JSON.stringify(assets)),
+      );
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
-    plugins: [security(), seo(env.SITE_URL ?? '')],
+    plugins: [
+      security(),
+      seo(env.SITE_URL ?? ''),
+      preloadTranslations(),
+      serviceWorker(),
+    ],
     build: {
       // Three.js is split into its own lazily loaded chunk.
       chunkSizeWarningLimit: 800,

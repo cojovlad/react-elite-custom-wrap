@@ -87,6 +87,16 @@
 - Search fields have a length limit; all external links use `noopener noreferrer`; `npm audit`: 0 vulnerabilities.
 - Loading skeleton: an inline-styled placeholder (header, brand tabs, studio and colour panel) appears instantly and fades out once the page is translated and the font is ready, so English text no longer flashes before the chosen language. It falls back to fading out on its own after 12 s and is hidden when JavaScript is disabled.
 
+## Code quality refactor (no visible changes)
+
+- `src/main.js` split from ~1,450 lines into modules: `design.js` (design model, share links), `film-catalog.js` (colour order, filters), `request.js` (form validation, WhatsApp message, email), `navigation.js`, `whatsapp-float.js`, `toast.js`, `dom.js`. `main.js` now only wires them together.
+- Translations moved to `src/locales/<lang>.json`, each a separate cached file. All languages are still fetched in parallel at start-up (preloaded in the HTML) because the layout reserves room for the longest text of every language, so switching language never moves the page.
+- Service worker (`dist/sw.js`, production/HTTPS only): already seen 3D models (last 12), decoders, fonts and scripts load from the device cache on the next visit. Each file is keyed by a content hash, so an updated model is always fetched fresh. HTML is never cached.
+- Tests: 21 Vitest unit tests (`tests/unit`) and 6 Playwright end-to-end scenarios on desktop and mobile (`tests/e2e`).
+- ESLint + Prettier. `npm run check` runs lint, format check, unit tests, build and e2e tests; `.github/workflows/check.yml` runs the same on GitHub for every push / pull request.
+- Fixed: FAQ structured data questions had a stray " +" at the end.
+- Verified identical behaviour with a before/after snapshot of the built site (all 6 languages, desktop and mobile, configurator, film catalogue, form and WhatsApp message, share link): 0 differences.
+
 ## Still to do
 
 - Add the business email in `src/config.js` and confirm the FormSubmit activation email.
