@@ -1,0 +1,9 @@
+dist
+public
+node_modules
+package-lock.json
+src/films.js
+playwright-report
+test-results
+*.md
+*.csv
