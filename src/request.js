@@ -2,6 +2,7 @@
 // the downloadable brief.
 import { CONTACT } from './config.js';
 import { getLocale, languages, t } from './i18n.js';
+import { sizeLabel } from './pricing.js';
 
 export const SERVICES = [
   'Color change wrap',
@@ -77,6 +78,14 @@ export function vehicleFields(request) {
   ];
 }
 
+// Vehicle size, the price estimate and its per-service breakdown, when known.
+const sizeFields = (request) =>
+  request.size ? [[t('Vehicle size'), t(sizeLabel(request.size))]] : [];
+const estimateFields = (request) => [
+  ...(request.estimate ? [[t('Estimate'), request.estimate]] : []),
+  ...(request.breakdown ? [[t('Estimate breakdown'), request.breakdown]] : []),
+];
+
 const servicesText = (request) =>
   request.services.map((service) => t(service)).join(', ') ||
   t('Not specified');
@@ -89,7 +98,9 @@ export function requestFields(request, partFields) {
     [t('Email'), request.email],
     [t('Phone'), request.phone || '—'],
     ...vehicleFields(request).slice(0, 1),
+    ...sizeFields(request),
     [t('Services'), servicesText(request)],
+    ...estimateFields(request),
     ...vehicleFields(request).slice(1),
     ...partFields,
     [t('Project notes'), request.notes || t('No additional notes.')],
@@ -167,7 +178,10 @@ export function briefLines(request, partLines, created = new Date()) {
     ...vehicleFields(request)
       .slice(0, 1)
       .map(([label, value]) => `${label}: ${value}`),
-    `${t('Services')}: ${servicesText(request)}`,
+    ...[...sizeFields(request), [t('Services'), servicesText(request)]].map(
+      ([label, value]) => `${label}: ${value}`,
+    ),
+    ...estimateFields(request).map(([label, value]) => `${label}: ${value}`),
     '',
     ...vehicleFields(request)
       .slice(1)

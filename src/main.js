@@ -48,6 +48,23 @@ import {
   paletteFilms,
   renderPaletteText,
 } from './palette-showcase.js';
+import {
+  requestEstimate,
+  SPECIAL_MATERIALS,
+  vehicleSize,
+  wrapEstimate,
+} from './pricing.js';
+import {
+  breakdownText,
+  chosenPricingSize,
+  estimateNote,
+  estimateRow,
+  estimateText,
+  initPricing,
+  priceText,
+  renderPricing,
+  setPricingDesign,
+} from './price-showcase.js';
 
 await loadTranslations();
 
@@ -87,6 +104,7 @@ let generatedVehicle = '';
 let requestResult = null;
 let sendingRequest = false;
 let revealedBrand = '';
+let sizeTouched = false;
 const translateStatic = captureStaticTranslations();
 const layout = createLayoutStability({
   locales: Object.keys(languages),
@@ -192,6 +210,10 @@ function updateControls() {
   const color = state.colors[selectedPart];
   $('#hex-value').textContent = color.toUpperCase();
   $('#custom-color').value = color;
+  setPricingDesign({
+    vehicleSize: vehicleSize(vehicle),
+    film: FILM_BY_ID.get(state.films.body),
+  });
   renderLocalizedText();
   document.querySelectorAll('[data-brand]').forEach((button) => {
     const active = button.dataset.brand === vehicle.brand;
@@ -274,6 +296,16 @@ function renderLocalizedText(scope) {
     button.title = name;
   });
   render('#selection-summary', describePartFull(selectedPart));
+  render(
+    '#price-estimate',
+    priceText(
+      wrapEstimate(
+        vehicleSize(vehicle),
+        FILM_BY_ID.get(state.films.body),
+        state.materials.body,
+      ),
+    ),
+  );
   render('#catalog-count', catalogCountText());
   const greeting = whatsappUrl(
     t("Hello Elite Custom Wrap! I'd like to ask about wrapping my car."),
@@ -285,7 +317,9 @@ function renderLocalizedText(scope) {
     renderRequestResult();
   if ($('#consult-dialog').open && root.contains($('#brief-summary')))
     updateBriefSummary();
+  if (root.contains($('#request-estimate'))) renderRequestEstimate();
   renderPaletteText(scope);
+  renderPricing(scope);
 }
 
 // Keeps the active brand visible in a long, horizontally scrolling strip
@@ -479,16 +513,106 @@ function setColor(color, material = state.materials[selectedPart]) {
   applyDesign();
 }
 
-function updateBriefSummary() {
+// The configurator car, or the visitor's own car once they say it differs.
+function summaryVehicle() {
+  const form = $('#consult-form');
+  if (form.elements.namedItem('carMatch').value === 'no')
+    return $('#consult-own-car').value.trim() || t('Your vehicle');
   const vehicle = VEHICLES.find((item) => item.id === state.vehicle);
+  return `${vehicle.brand} ${vehicle.model}`;
+}
+
+function updateBriefSummary() {
   $('#brief-summary').textContent = t(
     '{vehicle} · {finish} finish · Body: {body} · Roof / rear deck: {roof}',
     {
-      vehicle: `${vehicle.brand} ${vehicle.model}`,
+      vehicle: summaryVehicle(),
       finish: getMaterialName(state.materials.body),
       body: describePart('body'),
       roof: describePart('roof'),
     },
+  );
+}
+
+// The configurator car's size, unless the visitor picked one.
+function requestSize() {
+  const vehicle = VEHICLES.find((item) => item.id === state.vehicle);
+  return (
+    new FormData($('#consult-form')).get('size') ||
+    chosenPricingSize() ||
+    vehicleSize(vehicle)
+  );
+}
+
+function formEstimate() {
+  const data = new FormData($('#consult-form'));
+  return requestEstimate({
+    size: requestSize(),
+    services: data
+      .getAll('services')
+      .filter((service) => SERVICES.includes(service)),
+    film: FILM_BY_ID.get(state.films.body),
+    material: state.materials.body,
+  });
+}
+
+function renderRequestEstimate() {
+  const estimate = formEstimate();
+  const rows = estimate?.rows.length > 1 ? estimate.rows : [];
+  const list = $('#request-estimate-items');
+  // Same rows: update the text in place, so the layout reservation keeps
+  // measuring the same elements in every language.
+  if (list.children.length !== rows.length)
+    list.replaceChildren(
+      ...rows.map(() => {
+        const item = document.createElement('li');
+        item.append(
+          document.createElement('span'),
+          document.createElement('span'),
+        );
+        return item;
+      }),
+    );
+  rows.forEach((row, index) => {
+    const item = list.children[index];
+    item.classList.toggle('is-muted', row.min === undefined);
+    estimateRow(row).forEach((text, cell) => {
+      item.children[cell].textContent = text;
+    });
+  });
+  list.hidden = !rows.length;
+  $('#request-estimate-label').textContent = t(
+    estimate?.items?.length > 1 ? 'Estimated total' : 'Estimate',
+  );
+  $('#request-estimate').textContent = estimate?.items
+    ? priceText(estimate)
+    : estimate
+      ? t('On request')
+      : '—';
+  $('#request-estimate-note').textContent = estimateNote(estimate);
+  renderEstimateBasis();
+}
+
+// Which part of the design the wrap price follows, shown with the wrap only.
+function renderEstimateBasis() {
+  const wrap = new FormData($('#consult-form'))
+    .getAll('services')
+    .includes('Color change wrap');
+  $('#request-estimate-basis').hidden = !wrap;
+  if (!wrap) return;
+  const film = FILM_BY_ID.get(state.films.body);
+  $('#request-estimate-swatch').style.background = swatchBackground({
+    hex: state.colors.body,
+    material: state.materials.body,
+    flip: film?.flip,
+  });
+  $('#request-estimate-design').textContent = describePartFull('body');
+  $('#request-estimate-why').textContent = t(
+    film
+      ? 'The wrap price follows the film on the body. Change it in the configurator and the estimate changes too.'
+      : SPECIAL_MATERIALS.has(state.materials.body)
+        ? 'The colour is picked freely with a special finish, so we show the price of special films. We match it to a real film together.'
+        : 'The colour is picked freely, so we show the price of standard films. We match it to a real film together.',
   );
 }
 
@@ -518,7 +642,14 @@ function openConsult(service = '') {
     $('#consult-form').querySelector(
       `[name="services"][value="${service}"]`,
     ).checked = true;
+  if (!sizeTouched) {
+    const vehicle = VEHICLES.find((item) => item.id === state.vehicle);
+    const size = chosenPricingSize() || vehicleSize(vehicle);
+    $('#consult-form').querySelector(`[name="size"][value="${size}"]`).checked =
+      true;
+  }
   updateBriefSummary();
+  renderRequestEstimate();
   $('#consult-form').hidden = false;
   $('#brief-success').hidden = true;
   updateCarMatch();
@@ -539,6 +670,9 @@ function collectRequest() {
     services: data
       .getAll('services')
       .filter((service) => SERVICES.includes(service)),
+    size: requestSize(),
+    estimate: estimateText(formEstimate()),
+    breakdown: breakdownText(formEstimate()),
     notes: text('notes'),
     honey: text('_honey'),
     preview: `${vehicle.brand} ${vehicle.model}`,
@@ -594,6 +728,7 @@ function showSceneError(error) {
 
 translateStatic();
 initPaletteShowcase();
+initPricing();
 $('#language-select').value = getLocale();
 restoreDesign();
 $('#year').textContent = new Date().getFullYear();
@@ -828,8 +963,24 @@ $('#consult-form').addEventListener('submit', async (event) => {
 $('#consult-form').addEventListener('input', (event) =>
   event.target.setCustomValidity?.(''),
 );
+// Enter confirms the car name instead of submitting the half-filled form.
+$('#consult-own-car').addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter' || event.isComposing) return;
+  event.preventDefault();
+  updateBriefSummary();
+  layout.measure($('#consult-dialog'));
+});
 $('#consult-form').addEventListener('change', (event) => {
+  if (['carMatch', 'ownCar'].includes(event.target.name)) {
+    updateBriefSummary();
+    layout.measure($('#consult-dialog'));
+  }
   if (event.target.name === 'carMatch') updateCarMatch({ focus: true });
+  if (event.target.name === 'size') sizeTouched = true;
+  if (['size', 'services'].includes(event.target.name)) {
+    renderRequestEstimate();
+    layout.measure($('#consult-dialog'));
+  }
 });
 document
   .querySelectorAll('.brief-download')

@@ -3,41 +3,10 @@
 // Manufacturer RGB values are used when published; otherwise the swatch colour
 // is estimated from the official colour name (flagged with `estimated: true`).
 import { readFileSync, writeFileSync } from 'node:fs';
+import { parseCsv } from './csv.mjs';
 
 const source = process.argv[2] ?? 'Elite_Custom_Wrap_Master_Color_Database.csv';
 const text = readFileSync(source, 'utf8').replace(/^\uFEFF/, '');
-
-function parseCsv(input) {
-  const rows = [];
-  let row = [];
-  let field = '';
-  let quoted = false;
-  for (let index = 0; index < input.length; index++) {
-    const char = input[index];
-    if (quoted) {
-      if (char === '"' && input[index + 1] === '"') {
-        field += '"';
-        index++;
-      } else if (char === '"') quoted = false;
-      else field += char;
-    } else if (char === '"') quoted = true;
-    else if (char === ',') {
-      row.push(field);
-      field = '';
-    } else if (char === '\n' || char === '\r') {
-      if (char === '\r' && input[index + 1] === '\n') index++;
-      row.push(field);
-      if (row.some((value) => value.trim())) rows.push(row);
-      row = [];
-      field = '';
-    } else field += char;
-  }
-  if (field || row.length) {
-    row.push(field);
-    if (row.some((value) => value.trim())) rows.push(row);
-  }
-  return rows;
-}
 
 // Longest keyword wins. Values approximate the real film swatches.
 const NAMED = {

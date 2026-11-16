@@ -104,10 +104,38 @@
 - "Front PPF" added as its own card (03) in the services section (5 cards now), to the request form services, the WhatsApp/email message and the structured data.
 - Missing "Pearl" finish translation added. Tests: 25 unit, 7 e2e scenarios.
 
+## Price list and estimates
+
+- Prices come from the client's grid `Elite_Custom_Wrap_Grila_Preturi_Finala_v2.csv`. After editing the CSV, run `node scripts/generate-pricing.mjs` to regenerate `src/price-list.js`.
+- Prices are final (the client is not a VAT payer), so the site says "final prices" and never mentions VAT.
+- New "Prices" section (in the menu) with 4 vehicle sizes: Compact, Saloon / Estate, SUV, Large SUV / Luxury. It covers every car, including those not in the configurator.
+  - Each size has a side silhouette and example models.
+  - The silhouettes (`src/price-silhouettes.js`) are traced from the site's own CC BY 4.0 3D models (Renault Clio, BMW i4, Porsche Macan, BMW X5 M) at one real-world scale, so the sizes compare truthfully.
+  - It shows rows for colour change, clear PPF, coloured PPF and front PPF, with the price of every film line and a "from" price.
+  - It follows the configurator car's size until the visitor picks a size, and highlights the line of the chosen film.
+- Special films are priced on the Special / ColorFlow / Color Flip lines. These are colour flip, satin flip, diamond, liquid metal / chrome, brushed, carbon and every textured film.
+- The configurator shows a "Full wrap estimate": the exact price for a studio film, or a range for a free colour.
+- The request form now has:
+  - a vehicle-size choice, preselected from the configurator car;
+  - a live estimate built from the chosen services. When more than one service is chosen, it lists every service with its price, "included in the full / coloured PPF" (front PPF is not added on top of full PPF, and coloured PPF covers both), or "on request". The total covers only the priced services. Chrome delete and Bespoke details stay outside the total with an explanation: they depend on the trim and the details, so they are quoted once the studio sees the car.
+- When the colour change wrap is chosen, the estimate shows what it is priced from: a swatch with the body film and finish from the design, and a short note explaining that changing the film in the configurator changes the price (or, for a free colour, that standard or special film prices are shown until it is matched to a real film).
+- With "No, my car is different", the summary at the top of the form shows the car the visitor types (updated on Enter or when leaving the field) instead of the configurator car.
+- Size, estimate and the per-service breakdown are included in the WhatsApp message, the email and the downloaded brief, with "final offer after inspection".
+- SEO: a price range for each offer in the structured data, plus a new FAQ item, "How much does a car wrap cost?". These numbers are written by hand in `index.html`; a unit test fails if they no longer match the CSV.
+- Tests: 35 unit, 10 e2e scenarios.
+
+## Local SEO for Cluj
+
+- Title and description in every language now target the city: "Colantare auto și folie PPF în Cluj-Napoca | Elite Custom Wrap" (Hungarian uses Kolozsvár). Social preview texts and keywords mention Cluj too.
+- Visible mentions that fit the design: the hero line "COLANTARE AUTO PREMIUM & PPF · CLUJ-NAPOCA", "Găsește atelierul din Cluj-Napoca pe Google Maps", a footer line "Atelier de colantare auto și folie PPF în Cluj-Napoca, România" and a new FAQ item "Unde este atelierul?" (also published as FAQ rich results).
+- Structured data: city-level address (Cluj-Napoca, Cluj, RO), service area Cluj-Napoca and Romania, `sameAs` link to the Google business profile, and `geo.region` / `geo.placename` meta tags.
+
 ## Still to do
 
 - The first request sends a FormSubmit activation email to `elite.custom_cluj@yahoo.com`; click "Activate Form" in it, otherwise emails are not delivered (WhatsApp works regardless).
-- Add the real domain (canonical URL, sitemap, Open Graph image) and the business address/Instagram to the structured data.
+- Add the real domain (`SITE_URL` for canonical URL, sitemap, Open Graph image), then submit the sitemap in Google Search Console and link the site from the Google Business Profile.
+- Add the street address, opening hours and coordinates, plus the Instagram profile, to the structured data.
+- Add a gallery of real projects (with descriptive alt text, e.g. "BMW M4 colantat Satin Black, Cluj-Napoca").
 - Buy/confirm licences for the NC/SA models listed in `attributions.json`.
 - More Romanian-popular models (Skoda, more Dacia, VW SUVs, Opel Astra, Toyota RAV4).
 - Review the changes, then commit and push (nothing committed yet).

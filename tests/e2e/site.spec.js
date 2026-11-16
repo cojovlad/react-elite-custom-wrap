@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
 test('loads in Romanian and removes the skeleton', async ({ page }) => {
   await page.goto('/?lang=ro');
   await expect(page).toHaveTitle(
-    'Elite Custom Wrap — Colantare auto premium, folie PPF și chrome delete',
+    'Colantare auto și folie PPF în Cluj-Napoca | Elite Custom Wrap',
   );
   await expect(page.locator('html')).toHaveAttribute('lang', 'ro');
   await expect(page.locator('#page-skeleton')).toHaveCount(0);
@@ -54,7 +54,9 @@ test('switches language and remembers it', async ({ page }) => {
   await page.goto('/?lang=en');
   await page.locator('#language-select').selectOption('de');
   await expect(page.locator('html')).toHaveAttribute('lang', 'de');
-  await expect(page).toHaveTitle(/Premium-Autofolierung/);
+  await expect(page).toHaveTitle(
+    /Autofolierung & Lackschutzfolie in Cluj-Napoca/,
+  );
   expect(
     await page.evaluate(() => localStorage.getItem('elite-wrap-language-v1')),
   ).toBe('de');
@@ -76,11 +78,22 @@ test('consultation form opens WhatsApp with the client car', async ({
   await form.locator('[name=name]').fill('Ion Popescu');
   await form.locator('[name=email]').fill('ion@example.com');
   await form.locator('[name=phone]').fill('+40 700 000 000');
+  const summary = page.locator('#brief-summary');
+  const configured = (await summary.textContent()).split(' · ')[0];
   await form.locator('label:has([name=carMatch][value=no])').click();
+  await expect(summary).toHaveText(/^Vehiculul tău · /);
   await form.locator('[name=ownCar]').fill('Dacia Logan 2019');
+  await form.locator('[name=ownCar]').press('Enter');
+  await expect(summary).toHaveText(/^Dacia Logan 2019 · finisaj /);
+  await expect(summary).not.toContainText(configured);
+  await expect(form).toBeVisible();
   await form.locator('label:has([name=services])').nth(1).click();
   await expect(form.locator('[name=services]').nth(1)).toBeChecked();
   await form.locator('label:has([value="Front PPF"])').click();
+  await expect(form.locator('[name=size][value=sedan]')).toBeChecked();
+  await expect(form.locator('#request-estimate')).toHaveText(
+    '13.490 – 14.490 lei',
+  );
   const emailRequest = page.waitForRequest('https://formsubmit.co/**');
   await form.evaluate((element) => element.requestSubmit());
   expect((await emailRequest).url()).toBe(
@@ -98,6 +111,70 @@ test('consultation form opens WhatsApp with the client car', async ({
   expect(message).toContain(
     '*Servicii:* Folie de protecție a vopselei, PPF frontal',
   );
+  expect(message).toContain('*Mărimea mașinii:* Sedan / Break');
+  expect(message).toContain(
+    '*Estimare:* 13.490 – 14.490 lei (ofertă finală după verificare)',
+  );
+  expect(message).toContain(
+    '*Detaliere estimare:* Folie de protecție a vopselei: 13.490 – 14.490 lei; PPF frontal: Inclus în PPF-ul complet',
+  );
+});
+
+test('estimate explains what the total covers', async ({ page }) => {
+  await page.goto('/?lang=ro');
+  await page.locator('[data-consult]:visible').first().click();
+  const form = page.locator('#consult-form');
+  for (const service of [
+    'Paint protection film',
+    'Chrome delete',
+    'Bespoke details',
+  ])
+    await form.locator(`label:has([value="${service}"])`).click();
+  const items = form.locator('#request-estimate-items li');
+  await expect(items).toHaveCount(3);
+  await expect(items.nth(0)).toHaveText(
+    'Folie de protecție a vopselei13.490 – 14.490 lei',
+  );
+  await expect(items.nth(1)).toHaveText('Chrome deleteLa cerere');
+  await expect(form.locator('#request-estimate')).toHaveText(
+    '13.490 – 14.490 lei',
+  );
+  await expect(form.locator('#request-estimate-note')).toContainText(
+    'În afara totalului: Chrome delete și Detalii personalizate.',
+  );
+  await form.locator('label:has([value="Paint protection film"])').click();
+  await expect(form.locator('#request-estimate')).toHaveText('La cerere');
+  await expect(items).toHaveCount(2);
+  const basis = form.locator('#request-estimate-basis');
+  await expect(basis).toBeHidden();
+  await form.locator('label:has([value="Color change wrap"])').click();
+  await expect(basis).toBeVisible();
+  await expect(basis).toContainText('Calculat după designul tău');
+  await expect(form.locator('#request-estimate-design')).toHaveText(/ · /);
+  await expect(form.locator('#request-estimate-why')).toHaveText(
+    /^(Prețul colantării depinde|Ai ales culoarea liber)/,
+  );
+});
+
+test('price list follows the vehicle size', async ({ page }) => {
+  await page.goto('/?lang=ro');
+  const pricing = page.locator('#pricing');
+  const wrapFrom = pricing.locator('[data-price-category=wrap] .price-from');
+  await expect(pricing.locator('.price-size-name')).toHaveText('Sedan / Break');
+  await expect(wrapFrom).toContainText('9.990 lei');
+  await expect(pricing.locator('[data-line="3m-2080"]').first()).toHaveClass(
+    /is-current/,
+  );
+  await pricing.locator('[data-price-size=suv]').click();
+  await expect(pricing.locator('[data-price-size=suv]')).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await expect(wrapFrom).toContainText('11.990 lei');
+  await expect(
+    pricing.locator('[data-price-category=ppf-front] .price-from'),
+  ).toContainText('6.990 lei');
+  await expect(page.locator('#price-estimate')).toHaveText('10.990 lei');
 });
 
 test('services section offers front PPF', async ({ page }) => {
