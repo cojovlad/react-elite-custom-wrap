@@ -592,12 +592,12 @@ add(
   'Fényezésvédő fólia',
 );
 add(
-  'Protection, without distraction. A transparent barrier designed to help preserve the paint you love.',
-  'Protecție discretă. O barieră transparentă creată pentru a păstra vopseaua pe care o iubești.',
-  'Schutz ohne Ablenkung. Eine transparente Barriere, die deinen Lack bewahrt.',
-  'Protección sin distracciones. Una barrera transparente diseñada para conservar la pintura que te encanta.',
-  'Protezione discreta. Una barriera trasparente pensata per preservare la vernice che ami.',
-  'Védelem feltűnés nélkül. Átlátszó védőréteg, amely segít megőrizni a szeretett fényezést.',
+  'Protection, without distraction. Clear, matte stealth or colored film, designed to help preserve the paint you love.',
+  'Protecție discretă. Folie transparentă, mată (stealth) sau colorată, creată pentru a păstra vopseaua pe care o iubești.',
+  'Schutz ohne Ablenkung. Transparente, matte Stealth- oder farbige Folie, die deinen Lack bewahrt.',
+  'Protección sin distracciones. Lámina transparente, mate (stealth) o de color, diseñada para conservar la pintura que te encanta.',
+  'Protezione discreta. Pellicola trasparente, opaca stealth o colorata, pensata per preservare la vernice che ami.',
+  'Védelem feltűnés nélkül. Átlátszó, matt (stealth) vagy színes fólia, amely segít megőrizni a szeretett fényezést.',
 );
 add(
   'Protect your investment',
@@ -883,6 +883,38 @@ add(
   'Igen. A stúdióban külön-külön próbálhatod ki a motorháztetőt, tetőt, tükröket, karosszériát, kerekeket és hangsúlyokat. A kerékszínek stílusreferenciák; a megfelelő felújítási módot külön egyeztesd. A munka körét és alkalmasságát a konzultáció során erősítik meg.',
 );
 add(
+  'Which services do you offer?',
+  'Ce servicii oferiți?',
+  'Welche Leistungen bietet ihr an?',
+  '¿Qué servicios ofrece el estudio?',
+  'Quali servizi offrite?',
+  'Milyen szolgáltatásokat kínáltok?',
+);
+add(
+  'Color change wraps, paint protection film, chrome delete, and bespoke details such as contrasting roofs, mirror caps, and accents. Chrome delete blacks out chrome trims, window surrounds, grilles, and badges in gloss, satin, or matte black, or in a color of your choice.',
+  'Colantare pentru schimbarea culorii, folie de protecție a vopselei, chrome delete și detalii personalizate, precum plafoane contrastante, carcase de oglinzi și accente. Chrome delete acoperă ornamentele cromate, ramele geamurilor, grilele și emblemele în negru lucios, satinat sau mat, ori într-o culoare la alegere.',
+  'Farbwechsel-Folierungen, Lackschutzfolie, Chrome Delete und individuelle Details wie kontrastierende Dächer, Spiegelkappen und Akzente. Beim Chrome Delete werden Chromleisten, Fensterrahmen, Grills und Embleme in glänzendem, seidenmattem oder mattem Schwarz oder in einer Wunschfarbe foliert.',
+  'Vinilos de cambio de color, lámina de protección de pintura, eliminación de cromados y detalles a medida, como techos en contraste, carcasas de espejos y acentos. La eliminación de cromados oscurece molduras, marcos de ventanas, parrillas y emblemas en negro brillante, satinado o mate, o en el color que elijas.',
+  "Wrapping cambio colore, pellicola protettiva per vernice, oscuramento cromature e dettagli su misura come tetti a contrasto, calotte degli specchietti e accenti. L'oscuramento cromature riveste modanature, cornici dei finestrini, griglie e loghi in nero lucido, satinato od opaco, o in un colore a scelta.",
+  'Színváltó fóliázás, fényezésvédő fólia, krómelemek sötétítése és egyedi részletek, például kontrasztos tető, tükörburkolatok és hangsúlyok. Krómsötétítéskor a krómcsíkokat, ablakkereteket, hűtőrácsokat és emblémákat fényes, szatén vagy matt feketével, illetve választott színnel fóliázzuk.',
+);
+add(
+  'Is paint protection film only clear?',
+  'Folia de protecție a vopselei este doar transparentă?',
+  'Gibt es Lackschutzfolie nur transparent?',
+  '¿La lámina de protección de pintura solo es transparente?',
+  'La pellicola protettiva è solo trasparente?',
+  'Csak átlátszó fényezésvédő fólia létezik?',
+);
+add(
+  'No. Besides invisible clear film, PPF is available in a matte stealth version that gives gloss paint a satin-matte look, and in colored or tinted versions that protect and restyle the car at the same time. Available shades are confirmed with physical samples.',
+  'Nu. Pe lângă folia transparentă invizibilă, PPF este disponibil și în varianta mată (stealth), care oferă vopselei lucioase un aspect satinat-mat, precum și în variante colorate sau nuanțate, care protejează și schimbă aspectul mașinii în același timp. Nuanțele disponibile se confirmă pe mostre fizice.',
+  'Nein. Neben unsichtbarer transparenter Folie gibt es PPF auch als matte Stealth-Variante, die glänzendem Lack einen seidenmatten Look verleiht, sowie in farbigen oder getönten Varianten, die das Auto gleichzeitig schützen und neu gestalten. Verfügbare Farbtöne werden anhand echter Muster bestätigt.',
+  'No. Además de la lámina transparente invisible, el PPF existe en versión mate (stealth), que da a la pintura brillante un aspecto satinado mate, y en versiones de color o tintadas que protegen y transforman el coche a la vez. Los tonos disponibles se confirman con muestras físicas.',
+  "No. Oltre alla pellicola trasparente invisibile, il PPF è disponibile in versione opaca stealth, che dona alla vernice lucida un aspetto satinato, e in versioni colorate o fumé che proteggono e rinnovano l'auto allo stesso tempo. Le tonalità disponibili si confermano con campioni fisici.",
+  'Nem. A láthatatlan, átlátszó fólia mellett a PPF matt (stealth) változatban is elérhető, amely a fényes fényezésnek szatén-matt hatást ad, valamint színes vagy színezett változatban, amely egyszerre véd és ad új megjelenést az autónak. Az elérhető árnyalatokat valódi mintákkal erősítjük meg.',
+);
+add(
   'How do I get a quote or book an installation?',
   'Cum obțin o ofertă sau programez instalarea?',
   'Wie erhalte ich ein Angebot oder buche einen Termin?',
@@ -891,12 +923,12 @@ add(
   'Hogyan kérhetek árajánlatot vagy foglalhatok időpontot?',
 );
 add(
-  'Create a consultation brief with your design and vehicle details. Download it, then use the linked Google business profile to find contact details and discuss your project. This website does not send bookings or messages, and pricing is confirmed directly with the business.',
-  'Creează o fișă de consultare cu designul și detaliile vehiculului. Descarc-o, apoi folosește profilul Google al firmei pentru a găsi datele de contact și a discuta proiectul. Site-ul nu trimite rezervări sau mesaje, iar prețul este confirmat direct cu firma.',
-  'Erstelle ein Beratungsbriefing mit deinem Design und den Fahrzeugdaten. Lade es herunter und nutze das verlinkte Google-Unternehmensprofil, um Kontaktdaten zu finden und dein Projekt zu besprechen. Diese Website sendet keine Buchungen oder Nachrichten; Preise werden direkt mit dem Unternehmen bestätigt.',
-  'Crea una ficha de consulta con tu diseño y los datos del vehículo. Descárgala y usa el perfil de Google enlazado para encontrar los datos de contacto y hablar de tu proyecto. Esta web no envía reservas ni mensajes; el precio se confirma directamente con el negocio.',
-  "Crea un riepilogo per la consulenza con il design e i dati del veicolo. Scaricalo e usa il profilo Google collegato per trovare i contatti e discutere il progetto. Il sito non invia prenotazioni o messaggi; i prezzi vengono confermati direttamente dall'attività.",
-  'Készíts konzultációs összefoglalót a tervvel és a jármű adataival. Töltsd le, majd a Google-cégprofilon keresd meg az elérhetőségeket, és beszéld meg a projektet. A weboldal nem küld foglalást vagy üzenetet; az árat közvetlenül a vállalkozás erősíti meg.',
+  'Send a request from the consultation form. It opens WhatsApp with your vehicle and design details prefilled, so you only need to press Send. You can also message us directly on WhatsApp or download a brief. Pricing is confirmed directly with the studio.',
+  'Trimite o solicitare din formularul de consultare. Se deschide WhatsApp cu detaliile vehiculului și ale designului deja completate, așa că trebuie doar să apeși Trimite. Ne poți scrie și direct pe WhatsApp sau poți descărca o fișă. Prețul se confirmă direct cu studioul.',
+  'Sende eine Anfrage über das Beratungsformular. Es öffnet WhatsApp mit deinen Fahrzeug- und Designdetails, du musst nur noch auf Senden tippen. Du kannst uns auch direkt auf WhatsApp schreiben oder ein Briefing herunterladen. Preise werden direkt mit dem Studio bestätigt.',
+  'Envía una solicitud desde el formulario de consulta. Se abre WhatsApp con los datos de tu vehículo y tu diseño ya escritos, así que solo tienes que pulsar Enviar. También puedes escribirnos directamente por WhatsApp o descargar una ficha. El precio se confirma directamente con el estudio.',
+  'Invia una richiesta dal modulo di consulenza. Si apre WhatsApp con i dati del veicolo e del design già compilati: devi solo premere Invia. Puoi anche scriverci direttamente su WhatsApp o scaricare un riepilogo. I prezzi vengono confermati direttamente dallo studio.',
+  'Küldj kérést a konzultációs űrlapon. Megnyílik a WhatsApp a járműved és a terved adataival kitöltve, csak a Küldés gombot kell megnyomnod. Írhatsz nekünk közvetlenül WhatsAppon is, vagy letölthetsz egy összefoglalót. Az árat közvetlenül a stúdió erősíti meg.',
 );
 add(
   '04 / YOUR NEXT CHAPTER',
@@ -929,14 +961,6 @@ add(
   'Creemos algo excepcional',
   'Creiamo qualcosa di eccezionale',
   'Alkossunk valami kivételeset',
-);
-add(
-  'View the design inspiration ↗',
-  'Vezi sursa de inspirație ↗',
-  'Design-Inspiration ansehen ↗',
-  'Ver la inspiración del diseño ↗',
-  "Guarda l'ispirazione ↗",
-  'Nézd meg a design inspirációját ↗',
 );
 add(
   'Find the business on Google Maps ↗',
@@ -988,12 +1012,20 @@ add(
 );
 add('yours.', 'al tău.', 'deinem.', 'tuyo.', 'tua.', 'a tiéddé.');
 add(
-  'Create a brief to share with the studio. Nothing is sent automatically.',
-  'Creează o fișă pentru studio. Nimic nu este trimis automat.',
-  'Erstelle ein Briefing für das Studio. Es wird nichts automatisch gesendet.',
-  'Crea una ficha para compartir con el estudio. No se envía nada automáticamente.',
-  'Crea un riepilogo da condividere con lo studio. Non viene inviato nulla automaticamente.',
-  'Készíts összefoglalót a műhelynek. Semmit sem küldünk el automatikusan.',
+  'Send your vehicle and design to the studio. We reply on WhatsApp or by email.',
+  'Trimite studioului vehiculul și designul tău. Îți răspundem pe WhatsApp sau prin e-mail.',
+  'Sende dein Fahrzeug und dein Design an das Studio. Wir antworten per WhatsApp oder E-Mail.',
+  'Envía tu vehículo y tu diseño al estudio. Te respondemos por WhatsApp o por correo.',
+  'Invia allo studio il tuo veicolo e il tuo design. Rispondiamo su WhatsApp o via email.',
+  'Küldd el a stúdiónak a járműved és a terved. WhatsAppon vagy e-mailben válaszolunk.',
+);
+add(
+  'Prefer to chat?',
+  'Preferi să discutăm?',
+  'Lieber direkt chatten?',
+  '¿Prefieres chatear?',
+  'Preferisci chattare?',
+  'Inkább csevegnél?',
 );
 add(
   'Your name',
@@ -1029,6 +1061,22 @@ add(
   'Márka, modell, évjárat',
 );
 add(
+  'Phone (optional)',
+  'Telefon (opțional)',
+  'Telefon (optional)',
+  'Teléfono (opcional)',
+  'Telefono (facoltativo)',
+  'Telefon (nem kötelező)',
+);
+add(
+  'Services you are interested in',
+  'Serviciile care te interesează',
+  'Gewünschte Leistungen',
+  'Servicios que te interesan',
+  'Servizi che ti interessano',
+  'Szolgáltatások, amelyek érdekelnek',
+);
+add(
   'What do you have in mind?',
   'Ce ai în minte?',
   'Was hast du vor?',
@@ -1045,52 +1093,100 @@ add(
   'Mesélj az autódról, a kívánt munkáról vagy egy kedvelt anyagról.',
 );
 add(
-  'Your details stay in this browser and the file you download. No personal data is uploaded. A design brief is not a booking or a confirmed quote.',
-  'Datele rămân în acest browser și în fișierul descărcat. Nu sunt încărcate date personale. Fișa nu reprezintă o rezervare sau o ofertă confirmată.',
-  'Deine Daten bleiben in diesem Browser und in der heruntergeladenen Datei. Es werden keine personenbezogenen Daten hochgeladen. Ein Briefing ist keine Buchung oder bestätigtes Angebot.',
-  'Tus datos permanecen en este navegador y en el archivo descargado. No se suben datos personales. Una ficha de diseño no es una reserva ni un presupuesto confirmado.',
-  'I tuoi dati rimangono nel browser e nel file scaricato. Nessun dato personale viene caricato. Il riepilogo non è una prenotazione né un preventivo confermato.',
-  'Adataid ebben a böngészőben és a letöltött fájlban maradnak. Személyes adatokat nem töltünk fel. A tervösszefoglaló nem foglalás vagy megerősített árajánlat.',
+  'Your request is emailed to the studio through FormSubmit, and WhatsApp opens with the same message. Just press Send there. A request is not a booking or a confirmed quote.',
+  'Solicitarea este trimisă studioului prin e-mail, prin FormSubmit, iar WhatsApp se deschide cu același mesaj. Apasă doar Trimite. O solicitare nu reprezintă o rezervare sau o ofertă confirmată.',
+  'Deine Anfrage wird über FormSubmit per E-Mail an das Studio gesendet, und WhatsApp öffnet sich mit derselben Nachricht. Tippe dort nur auf Senden. Eine Anfrage ist keine Buchung und kein bestätigtes Angebot.',
+  'Tu solicitud se envía al estudio por correo a través de FormSubmit y WhatsApp se abre con el mismo mensaje. Solo pulsa Enviar. Una solicitud no es una reserva ni un presupuesto confirmado.',
+  'La richiesta viene inviata allo studio via email tramite FormSubmit e WhatsApp si apre con lo stesso messaggio. Premi solo Invia. Una richiesta non è una prenotazione né un preventivo confermato.',
+  'A kérésedet a FormSubmit e-mailben továbbítja a stúdiónak, a WhatsApp pedig ugyanazzal az üzenettel nyílik meg. Ott csak nyomd meg a Küldés gombot. A kérés nem foglalás és nem megerősített árajánlat.',
 );
 add(
-  'Download consultation brief',
-  'Descarcă fișa de consultare',
-  'Beratungsbriefing herunterladen',
-  'Descargar ficha de consulta',
-  'Scarica il riepilogo per la consulenza',
-  'Konzultációs összefoglaló letöltése',
+  'WhatsApp opens with your request prefilled. Just press Send there to deliver it. A request is not a booking or a confirmed quote.',
+  'WhatsApp se deschide cu solicitarea deja completată. Apasă doar Trimite pentru a o expedia. O solicitare nu reprezintă o rezervare sau o ofertă confirmată.',
+  'WhatsApp öffnet sich mit deiner vorausgefüllten Anfrage. Tippe dort nur auf Senden. Eine Anfrage ist keine Buchung und kein bestätigtes Angebot.',
+  'WhatsApp se abre con tu solicitud ya escrita. Solo pulsa Enviar para mandarla. Una solicitud no es una reserva ni un presupuesto confirmado.',
+  'WhatsApp si apre con la richiesta già compilata. Premi solo Invia per inoltrarla. Una richiesta non è una prenotazione né un preventivo confermato.',
+  'A WhatsApp előre kitöltött kéréssel nyílik meg. Ott csak nyomd meg a Küldés gombot. A kérés nem foglalás és nem megerősített árajánlat.',
 );
 add(
-  'Your brief is ready.',
-  'Fișa ta este gata.',
-  'Dein Briefing ist fertig.',
-  'Tu ficha está lista.',
-  'Il tuo riepilogo è pronto.',
-  'Elkészült az összefoglalód.',
+  'Send request',
+  'Trimite solicitarea',
+  'Anfrage senden',
+  'Enviar solicitud',
+  'Invia richiesta',
+  'Kérés küldése',
 );
 add(
-  'Use the linked Google business profile to find contact details, then share your downloaded brief with the business. No request has been sent from this site.',
-  'Folosește profilul Google al firmei pentru a găsi datele de contact, apoi trimite-i fișa descărcată. Nu a fost trimisă nicio solicitare de pe acest site.',
-  'Nutze das verlinkte Google-Unternehmensprofil für die Kontaktdaten und teile das heruntergeladene Briefing mit dem Unternehmen. Von dieser Website wurde keine Anfrage gesendet.',
-  'Usa el perfil de Google enlazado para encontrar los datos de contacto y comparte la ficha descargada con el negocio. No se ha enviado ninguna solicitud desde este sitio.',
-  "Usa il profilo Google collegato per trovare i contatti e condividi il riepilogo scaricato con l'attività. Nessuna richiesta è stata inviata da questo sito.",
-  'A Google-cégprofilon keresd meg az elérhetőségeket, majd oszd meg a letöltött összefoglalót a vállalkozással. Az oldal nem küldött kérelmet.',
+  'Download a brief instead',
+  'Sau descarcă o fișă',
+  'Stattdessen Briefing herunterladen',
+  'O descarga una ficha',
+  'Oppure scarica un riepilogo',
+  'Vagy tölts le összefoglalót',
 );
 add(
-  'Open business profile ↗',
-  'Deschide profilul firmei ↗',
-  'Unternehmensprofil öffnen ↗',
-  'Abrir perfil del negocio ↗',
-  "Apri il profilo dell'attività ↗",
-  'Cégprofil megnyitása ↗',
+  'Your request is on its way.',
+  'Solicitarea ta a fost trimisă.',
+  'Deine Anfrage ist unterwegs.',
+  'Tu solicitud está en camino.',
+  'La tua richiesta è stata inviata.',
+  'A kérésed úton van.',
 );
 add(
-  'Edit your brief',
-  'Editează fișa',
-  'Briefing bearbeiten',
-  'Editar tu ficha',
-  'Modifica il riepilogo',
-  'Összefoglaló szerkesztése',
+  'Almost done.',
+  'Aproape gata.',
+  'Fast geschafft.',
+  'Casi listo.',
+  'Quasi fatto.',
+  'Majdnem kész.',
+);
+add(
+  'WhatsApp opens with your request prefilled. Press Send there to deliver it to {number}.',
+  'WhatsApp se deschide cu solicitarea deja completată. Apasă Trimite pentru a o expedia la {number}.',
+  'WhatsApp öffnet sich mit deiner vorausgefüllten Anfrage. Tippe auf Senden, um sie an {number} zu schicken.',
+  'WhatsApp se abre con tu solicitud ya escrita. Pulsa Enviar para mandarla al {number}.',
+  'WhatsApp si apre con la richiesta già compilata. Premi Invia per inoltrarla al {number}.',
+  'A WhatsApp előre kitöltött kéréssel nyílik meg. Nyomd meg a Küldés gombot, hogy elküldd a {number} számra.',
+);
+add(
+  'A copy of your request was emailed to the studio.',
+  'O copie a solicitării a fost trimisă studioului prin e-mail.',
+  'Eine Kopie deiner Anfrage wurde per E-Mail an das Studio gesendet.',
+  'Se ha enviado una copia de tu solicitud al estudio por correo.',
+  'Una copia della richiesta è stata inviata allo studio via email.',
+  'A kérésed másolatát e-mailben elküldtük a stúdiónak.',
+);
+add(
+  'The email could not be sent ({error}). Your WhatsApp message and the downloadable brief still include every detail.',
+  'E-mailul nu a putut fi trimis ({error}). Mesajul WhatsApp și fișa descărcabilă conțin în continuare toate detaliile.',
+  'Die E-Mail konnte nicht gesendet werden ({error}). Deine WhatsApp-Nachricht und das herunterladbare Briefing enthalten trotzdem alle Details.',
+  'No se pudo enviar el correo ({error}). Tu mensaje de WhatsApp y la ficha descargable siguen incluyendo todos los detalles.',
+  "Non è stato possibile inviare l'email ({error}). Il messaggio WhatsApp e il riepilogo scaricabile contengono comunque tutti i dettagli.",
+  'Az e-mailt nem sikerült elküldeni ({error}). A WhatsApp-üzenet és a letölthető összefoglaló így is minden részletet tartalmaz.',
+);
+add(
+  'Open WhatsApp',
+  'Deschide WhatsApp',
+  'WhatsApp öffnen',
+  'Abrir WhatsApp',
+  'Apri WhatsApp',
+  'WhatsApp megnyitása',
+);
+add(
+  'Download brief',
+  'Descarcă fișa',
+  'Briefing herunterladen',
+  'Descargar ficha',
+  'Scarica il riepilogo',
+  'Összefoglaló letöltése',
+);
+add(
+  'Edit your request',
+  'Editează solicitarea',
+  'Anfrage bearbeiten',
+  'Editar solicitud',
+  'Modifica la richiesta',
+  'Kérés szerkesztése',
 );
 add(
   'Your design link',
@@ -1134,20 +1230,28 @@ add(
 );
 
 add(
-  'Elite Custom Wrap — Your car. Your signature.',
-  'Elite Custom Wrap — Mașina ta. Semnătura ta.',
-  'Elite Custom Wrap — Dein Auto. Deine Signatur.',
-  'Elite Custom Wrap — Tu coche. Tu firma.',
-  'Elite Custom Wrap — La tua auto. La tua firma.',
-  'Elite Custom Wrap — Az autód. A kézjegyed.',
+  'Elite Custom Wrap — Premium car wrapping, PPF & chrome delete',
+  'Elite Custom Wrap — Colantare auto premium, folie PPF și chrome delete',
+  'Elite Custom Wrap — Premium-Autofolierung, Lackschutzfolie & Chrome Delete',
+  'Elite Custom Wrap — Vinilado de coches premium, PPF y chrome delete',
+  'Elite Custom Wrap — Car wrapping premium, PPF e chrome delete',
+  'Elite Custom Wrap — Prémium autófóliázás, PPF és chrome delete',
 );
 add(
-  'An individual expression, a meticulous finish. Explore premium vehicle wrapping, paint protection and a live, panel-by-panel wrap configurator at Elite Custom Wrap.',
-  'O expresie individuală, un finisaj meticulos. Descoperă colantarea premium, protecția vopselei și configuratorul interactiv Elite Custom Wrap.',
-  'Individueller Ausdruck und sorgfältiges Finish. Entdecke Premium-Folierung, Lackschutz und den interaktiven Konfigurator von Elite Custom Wrap.',
-  'Una expresión individual y un acabado meticuloso. Descubre el vinilado premium, la protección de pintura y el configurador interactivo de Elite Custom Wrap.',
-  'Espressione individuale e finitura meticolosa. Scopri wrapping premium, protezione della vernice e configuratore interattivo di Elite Custom Wrap.',
-  'Egyedi önkifejezés, gondos kivitel. Fedezd fel a prémium fóliázást, a fényezésvédelmet és az Elite Custom Wrap interaktív konfigurátorát.',
+  'Premium car wrapping, colour change wraps, clear and coloured PPF and chrome delete. Design your wrap in our live 3D configurator with 500+ real films.',
+  'Colantare auto premium, schimbare de culoare, folie PPF transparentă sau colorată și chrome delete. Creează-ți designul în configuratorul 3D cu peste 500 de folii reale.',
+  'Premium-Autofolierung, Farbwechsel, transparente und farbige Lackschutzfolie sowie Chrome Delete. Gestalte deine Folierung im 3D-Konfigurator mit über 500 echten Folien.',
+  'Vinilado de coches premium, cambio de color, PPF transparente o de color y chrome delete. Diseña tu vinilado en nuestro configurador 3D con más de 500 vinilos reales.',
+  'Car wrapping premium, cambio colore, PPF trasparente o colorato e chrome delete. Progetta il tuo wrap nel configuratore 3D con oltre 500 pellicole reali.',
+  'Prémium autófóliázás, színváltás, átlátszó és színes PPF fényezésvédő fólia, chrome delete. Tervezd meg a fóliázást 3D konfigurátorunkban több mint 500 valódi fóliával.',
+);
+add(
+  'PREMIUM CAR WRAPPING & PPF',
+  'COLANTARE AUTO PREMIUM & PPF',
+  'PREMIUM-AUTOFOLIERUNG & PPF',
+  'VINILADO PREMIUM & PPF',
+  'CAR WRAPPING PREMIUM & PPF',
+  'PRÉMIUM AUTÓFÓLIÁZÁS & PPF',
 );
 add(
   'Body',
@@ -1308,6 +1412,123 @@ add(
   'Superdeportivo',
   'Supercar',
   'Szupersportautó',
+);
+add('SUV', 'SUV', 'SUV', 'SUV', 'SUV', 'SUV');
+add(
+  'Luxury SUV',
+  'SUV de lux',
+  'Luxus-SUV',
+  'SUV de lujo',
+  'SUV di lusso',
+  'Luxus SUV',
+);
+add(
+  'Family hatchback',
+  'Hatchback de familie',
+  'Familien-Kompaktwagen',
+  'Compacto familiar',
+  'Berlina compatta per la famiglia',
+  'Családi ferdehátú',
+);
+add('Estate', 'Break', 'Kombi', 'Familiar', 'Station wagon', 'Kombi');
+add('Saloon', 'Berlină', 'Limousine', 'Berlina', 'Berlina', 'Szedán');
+add(
+  'Off-roader',
+  'Off-road',
+  'Geländewagen',
+  'Todoterreno',
+  'Fuoristrada',
+  'Terepjáró',
+);
+add(
+  'Compact SUV',
+  'SUV compact',
+  'Kompakt-SUV',
+  'SUV compacto',
+  'SUV compatto',
+  'Kompakt SUV',
+);
+add(
+  'Electric SUV',
+  'SUV electric',
+  'Elektro-SUV',
+  'SUV eléctrico',
+  'SUV elettrico',
+  'Elektromos SUV',
+);
+add(
+  'Grand tourer',
+  'Grand tourer',
+  'Gran Turismo',
+  'Gran turismo',
+  'Gran turismo',
+  'Gran turismo',
+);
+add(
+  'Hypercar',
+  'Hipercar',
+  'Hypercar',
+  'Hiperdeportivo',
+  'Hypercar',
+  'Hiperautó',
+);
+add('Pickup', 'Pickup', 'Pick-up', 'Pick-up', 'Pick-up', 'Pickup');
+add('MPV', 'Monovolum', 'Van', 'Monovolumen', 'Monovolume', 'Egyterű');
+add(
+  'City car',
+  'Mașină de oraș',
+  'Kleinstwagen',
+  'Urbano',
+  'Citycar',
+  'Városi autó',
+);
+add(
+  'Sports saloon',
+  'Berlină sport',
+  'Sportlimousine',
+  'Berlina deportiva',
+  'Berlina sportiva',
+  'Sportszedán',
+);
+add(
+  'Performance estate',
+  'Break de performanță',
+  'Performance-Kombi',
+  'Familiar de altas prestaciones',
+  'Station wagon ad alte prestazioni',
+  'Sportkombi',
+);
+add(
+  'Electric hatchback',
+  'Hatchback electric',
+  'Elektro-Kompaktwagen',
+  'Compacto eléctrico',
+  'Compatta elettrica',
+  'Elektromos ferdehátú',
+);
+add(
+  'Luxury coupe',
+  'Coupé de lux',
+  'Luxus-Coupé',
+  'Coupé de lujo',
+  'Coupé di lusso',
+  'Luxus kupé',
+);
+add(
+  'Sports car',
+  'Mașină sport',
+  'Sportwagen',
+  'Deportivo',
+  'Auto sportiva',
+  'Sportautó',
+);
+add(
+  'Compact saloon',
+  'Berlină compactă',
+  'Kompaktlimousine',
+  'Berlina compacta',
+  'Berlina compatta',
+  'Kompakt szedán',
 );
 add(
   'Luxury roadster',
@@ -1614,14 +1835,6 @@ add(
   '{vehicle} (add meg az évjáratot)',
 );
 add(
-  'Interested in: {service}.',
-  'Interesat de: {service}.',
-  'Interesse an: {service}.',
-  'Interés en: {service}.',
-  'Interessato a: {service}.',
-  'Érdekel: {service}.',
-);
-add(
   'Color change wrap',
   'Colantare pentru schimbarea culorii',
   'Farbwechsel-Folierung',
@@ -1713,12 +1926,530 @@ add(
   'A kerék színe stílusreferencia; egyeztesd a megfelelő felújítási módot.',
 );
 add(
-  'No request has been sent. Share this file with the business directly.',
-  'Nu a fost trimisă nicio solicitare. Trimite acest fișier direct firmei.',
-  'Es wurde keine Anfrage gesendet. Teile diese Datei direkt mit dem Unternehmen.',
-  'No se ha enviado ninguna solicitud. Comparte este archivo directamente con el negocio.',
-  "Nessuna richiesta è stata inviata. Condividi il file direttamente con l'attività.",
-  'Nem küldtünk kérelmet. Oszd meg ezt a fájlt közvetlenül a vállalkozással.',
+  'Chrome delete',
+  'Chrome delete',
+  'Chrome Delete',
+  'Eliminación de cromados',
+  'Oscuramento cromature',
+  'Krómelemek sötétítése',
+);
+add(
+  'Chrome trims, window surrounds, grilles and badges, blacked out in gloss, satin or matte black, or in any color you choose.',
+  'Ornamente cromate, rame de geamuri, grile și embleme, acoperite în negru lucios, satinat sau mat, ori în orice culoare alegi.',
+  'Chromleisten, Fensterrahmen, Grills und Embleme, foliert in glänzendem, seidenmattem oder mattem Schwarz oder in einer Farbe deiner Wahl.',
+  'Molduras cromadas, marcos de ventanas, parrillas y emblemas, oscurecidos en negro brillante, satinado o mate, o en el color que elijas.',
+  'Modanature cromate, cornici dei finestrini, griglie e loghi, oscurati in nero lucido, satinato od opaco, o nel colore che preferisci.',
+  'Krómcsíkok, ablakkeretek, hűtőrácsok és emblémák fényes, szatén vagy matt feketében, vagy bármilyen választott színben.',
+);
+add(
+  'Black out the chrome',
+  'Înnegrește cromul',
+  'Chrom abdunkeln',
+  'Oscurece el cromo',
+  'Oscura le cromature',
+  'Sötétítsd el a krómot',
+);
+add(
+  'Message us on WhatsApp',
+  'Scrie-ne pe WhatsApp',
+  'Schreib uns auf WhatsApp',
+  'Escríbenos por WhatsApp',
+  'Scrivici su WhatsApp',
+  'Írj nekünk WhatsAppon',
+);
+add(
+  'Chat on WhatsApp',
+  'Discută pe WhatsApp',
+  'Auf WhatsApp chatten',
+  'Chatea por WhatsApp',
+  'Chatta su WhatsApp',
+  'Csevegj WhatsAppon',
+);
+add(
+  'Chat with us on WhatsApp (opens in a new tab)',
+  'Scrie-ne pe WhatsApp (se deschide într-o filă nouă)',
+  'Schreib uns auf WhatsApp (öffnet in einem neuen Tab)',
+  'Escríbenos por WhatsApp (se abre en una pestaña nueva)',
+  'Scrivici su WhatsApp (si apre in una nuova scheda)',
+  'Írj nekünk WhatsAppon (új lapon nyílik meg)',
+);
+add(
+  'Hide WhatsApp button',
+  'Ascunde butonul WhatsApp',
+  'WhatsApp-Schaltfläche ausblenden',
+  'Ocultar el botón de WhatsApp',
+  'Nascondi il pulsante WhatsApp',
+  'WhatsApp gomb elrejtése',
+);
+add(
+  "Hello Elite Custom Wrap! I'd like to ask about wrapping my car.",
+  'Bună, Elite Custom Wrap! Aș dori informații despre colantarea mașinii mele.',
+  'Hallo Elite Custom Wrap! Ich hätte eine Frage zur Folierung meines Autos.',
+  '¡Hola, Elite Custom Wrap! Me gustaría informarme sobre el vinilado de mi coche.',
+  'Ciao Elite Custom Wrap! Vorrei informazioni sul wrapping della mia auto.',
+  'Szia, Elite Custom Wrap! Az autóm fóliázásáról szeretnék érdeklődni.',
+);
+add(
+  "Hello Elite Custom Wrap! I'd like a consultation for my car.",
+  'Bună, Elite Custom Wrap! Aș dori o consultanță pentru mașina mea.',
+  'Hallo Elite Custom Wrap! Ich hätte gern eine Beratung für mein Auto.',
+  '¡Hola, Elite Custom Wrap! Me gustaría una consulta para mi coche.',
+  'Ciao Elite Custom Wrap! Vorrei una consulenza per la mia auto.',
+  'Szia, Elite Custom Wrap! Konzultációt szeretnék kérni az autómhoz.',
+);
+add('Phone', 'Telefon', 'Telefon', 'Teléfono', 'Telefono', 'Telefon');
+add(
+  'Services',
+  'Servicii',
+  'Leistungen',
+  'Servicios',
+  'Servizi',
+  'Szolgáltatások',
+);
+add(
+  'Not specified',
+  'Nespecificat',
+  'Nicht angegeben',
+  'Sin especificar',
+  'Non specificato',
+  'Nincs megadva',
+);
+add(
+  'Project notes',
+  'Note despre proiect',
+  'Projektnotizen',
+  'Notas del proyecto',
+  'Note sul progetto',
+  'Projektmegjegyzések',
+);
+add(
+  'Design link',
+  'Linkul designului',
+  'Design-Link',
+  'Enlace del diseño',
+  'Link del design',
+  'Terv hivatkozása',
+);
+add(
+  'New wrap request from {name}',
+  'Solicitare nouă de colantare de la {name}',
+  'Neue Folierungsanfrage von {name}',
+  'Nueva solicitud de vinilado de {name}',
+  'Nuova richiesta di wrapping da {name}',
+  'Új fóliázási kérés tőle: {name}',
+);
+add(
+  'Please enter your name.',
+  'Introdu numele tău.',
+  'Bitte gib deinen Namen ein.',
+  'Introduce tu nombre.',
+  'Inserisci il tuo nome.',
+  'Add meg a neved.',
+);
+add(
+  'Please enter a valid email address.',
+  'Introdu o adresă de e-mail validă.',
+  'Bitte gib eine gültige E-Mail-Adresse ein.',
+  'Introduce un correo electrónico válido.',
+  'Inserisci un indirizzo email valido.',
+  'Adj meg érvényes e-mail-címet.',
+);
+add(
+  'Please enter a valid phone number, or leave it empty.',
+  'Introdu un număr de telefon valid sau lasă câmpul gol.',
+  'Bitte gib eine gültige Telefonnummer ein oder lass das Feld leer.',
+  'Introduce un teléfono válido o deja el campo vacío.',
+  'Inserisci un numero di telefono valido o lascia il campo vuoto.',
+  'Adj meg érvényes telefonszámot, vagy hagyd üresen.',
+);
+add(
+  'Please describe your vehicle.',
+  'Descrie vehiculul tău.',
+  'Bitte beschreibe dein Fahrzeug.',
+  'Describe tu vehículo.',
+  'Descrivi il tuo veicolo.',
+  'Írd le a járműved.',
+);
+add(
+  'Your consultation brief has been downloaded.',
+  'Fișa de consultare a fost descărcată.',
+  'Dein Beratungsbriefing wurde heruntergeladen.',
+  'Se ha descargado tu ficha de consulta.',
+  'Il riepilogo per la consulenza è stato scaricato.',
+  'A konzultációs összefoglaló letöltődött.',
+);
+add(
+  'Website crafted by New Folder Solutions',
+  'Site realizat de New Folder Solutions',
+  'Website gestaltet von New Folder Solutions',
+  'Sitio web creado por New Folder Solutions',
+  'Sito realizzato da New Folder Solutions',
+  'A weboldalt a New Folder Solutions készítette',
+);
+add(
+  'BEHIND THIS WEBSITE',
+  'CINE A CREAT ACEST SITE',
+  'HINTER DIESER WEBSITE',
+  'DETRÁS DE ESTA WEB',
+  'DIETRO QUESTO SITO',
+  'A WEBOLDAL MÖGÖTT',
+);
+add(
+  'Close website credit',
+  'Închide informațiile despre creatorul site-ului',
+  'Hinweis zur Website schließen',
+  'Cerrar los créditos del sitio web',
+  'Chiudi i crediti del sito',
+  'Készítői információ bezárása',
+);
+add(
+  'Want a website like',
+  'Îți dorești un site ca',
+  'Möchtest du eine Website wie',
+  '¿Quieres una web como',
+  'Vuoi un sito come',
+  'Szeretnél egy ilyen',
+);
+add('this?', 'acesta?', 'diese?', 'esta?', 'questo?', 'weboldalt?');
+add(
+  'New Folder Solutions builds premium websites and web apps. Get in touch.',
+  'New Folder Solutions realizează site-uri și aplicații web premium. Ia legătura cu echipa.',
+  'New Folder Solutions entwickelt Premium-Websites und Web-Apps. Nimm Kontakt auf.',
+  'New Folder Solutions crea sitios web y aplicaciones web premium. Ponte en contacto.',
+  'New Folder Solutions realizza siti e web app premium. Mettiti in contatto.',
+  'A New Folder Solutions prémium weboldalakat és webalkalmazásokat készít. Vedd fel velük a kapcsolatot.',
+);
+add(
+  'Visit New Folder Solutions',
+  'Vizitează New Folder Solutions',
+  'New Folder Solutions besuchen',
+  'Visitar New Folder Solutions',
+  'Visita New Folder Solutions',
+  'Irány a New Folder Solutions',
+);
+add(
+  'Did you find your car on the site?',
+  'Ai găsit mașina ta pe site?',
+  'Hast du dein Auto auf der Website gefunden?',
+  '¿Has encontrado tu coche en la web?',
+  'Hai trovato la tua auto sul sito?',
+  'Megtaláltad az autódat az oldalon?',
+);
+add(
+  'Yes, this is my car',
+  'Da, aceasta este mașina mea',
+  'Ja, das ist mein Auto',
+  'Sí, este es mi coche',
+  'Sì, è la mia auto',
+  'Igen, ez az én autóm',
+);
+add(
+  'No, my car is different',
+  'Nu, mașina mea este alta',
+  'Nein, mein Auto ist ein anderes',
+  'No, mi coche es otro',
+  'No, la mia auto è diversa',
+  'Nem, nekem másik autóm van',
+);
+add(
+  'Your car (make, model, year)',
+  'Mașina ta (marcă, model, an)',
+  'Dein Auto (Marke, Modell, Baujahr)',
+  'Tu coche (marca, modelo, año)',
+  'La tua auto (marca, modello, anno)',
+  'Az autód (márka, modell, évjárat)',
+);
+add(
+  "Please enter your car's make, model and year.",
+  'Introdu marca, modelul și anul mașinii tale.',
+  'Bitte gib Marke, Modell und Baujahr deines Autos ein.',
+  'Introduce la marca, el modelo y el año de tu coche.',
+  'Inserisci marca, modello e anno della tua auto.',
+  'Add meg az autód márkáját, modelljét és évjáratát.',
+);
+add('Vehicle', 'Vehicul', 'Fahrzeug', 'Vehículo', 'Veicolo', 'Jármű');
+add(
+  '{car} (preview shown on: {model})',
+  '{car} (previzualizare pe: {model})',
+  '{car} (Vorschau gezeigt an: {model})',
+  '{car} (vista previa en: {model})',
+  '{car} (anteprima su: {model})',
+  '{car} (az előnézet ezen látható: {model})',
+);
+[
+  [
+    'Play with any colour',
+    'Joacă-te cu orice culoare',
+    'Spiel mit jeder Farbe',
+    'Juega con cualquier color',
+    'Gioca con qualsiasi colore',
+    'Játssz bármilyen színnel',
+  ],
+  [
+    'Our studio films — exact colours',
+    'Foliile noastre — culori exacte',
+    'Unsere Folien — exakte Farben',
+    'Nuestros vinilos — colores exactos',
+    'Le nostre pellicole — colori esatti',
+    'Fóliáink — pontos színek',
+  ],
+  [
+    'All manufacturers',
+    'Toți producătorii',
+    'Alle Hersteller',
+    'Todos los fabricantes',
+    'Tutti i produttori',
+    'Minden gyártó',
+  ],
+  [
+    'Search colour or code',
+    'Caută culoare sau cod',
+    'Farbe oder Code suchen',
+    'Buscar color o código',
+    'Cerca colore o codice',
+    'Szín vagy kód keresése',
+  ],
+  [
+    'Search films by colour name or code',
+    'Caută folii după nume sau cod',
+    'Folien nach Farbname oder Code suchen',
+    'Buscar vinilos por nombre o código',
+    'Cerca pellicole per nome o codice',
+    'Fóliák keresése szín vagy kód szerint',
+  ],
+  [
+    'Film manufacturer',
+    'Producător folie',
+    'Folienhersteller',
+    'Fabricante del vinilo',
+    'Produttore della pellicola',
+    'Fóliagyártó',
+  ],
+  [
+    'Filter by finish',
+    'Filtrează după finisaj',
+    'Nach Finish filtern',
+    'Filtrar por acabado',
+    'Filtra per finitura',
+    'Szűrés felület szerint',
+  ],
+  [
+    'Wrap films',
+    'Folii de colantare',
+    'Wrap-Folien',
+    'Vinilos de wrap',
+    'Pellicole wrap',
+    'Fóliák',
+  ],
+  [
+    'Finishes available for this colour',
+    'Finisaje disponibile pentru această culoare',
+    'Verfügbare Finishes für diese Farbe',
+    'Acabados disponibles para este color',
+    'Finiture disponibili per questo colore',
+    'Elérhető felületek ehhez a színhez',
+  ],
+  [
+    'Approximate on-screen colour. Confirm with a physical sample.',
+    'Culoare aproximativă pe ecran. Confirmă pe o mostră fizică.',
+    'Ungefähre Bildschirmfarbe. Bitte am echten Muster prüfen.',
+    'Color aproximado en pantalla. Confírmalo con una muestra física.',
+    'Colore approssimativo a schermo. Verificalo su un campione fisico.',
+    'Közelítő képernyőszín. Ellenőrizd fizikai mintán.',
+  ],
+  [
+    'Manufacturer RGB reference. Confirm with a physical sample.',
+    'Referință RGB de la producător. Confirmă pe o mostră fizică.',
+    'RGB-Referenz des Herstellers. Bitte am echten Muster prüfen.',
+    'Referencia RGB del fabricante. Confírmalo con una muestra física.',
+    'Riferimento RGB del produttore. Verificalo su un campione fisico.',
+    'Gyártói RGB-referencia. Ellenőrizd fizikai mintán.',
+  ],
+  [
+    'Custom shade. We will match it to the closest real film.',
+    'Nuanță liberă. O potrivim cu cea mai apropiată folie reală.',
+    'Freie Farbe. Wir wählen die nächstliegende echte Folie.',
+    'Tono libre. Lo igualamos con el vinilo real más cercano.',
+    'Tonalità libera. La abbiniamo alla pellicola reale più vicina.',
+    'Egyedi árnyalat. A legközelebbi valódi fóliához igazítjuk.',
+  ],
+  [
+    'High gloss',
+    'Lucios intens',
+    'Hochglanz',
+    'Alto brillo',
+    'Lucido intenso',
+    'Magasfényű',
+  ],
+  [
+    'Gloss metallic',
+    'Metalizat lucios',
+    'Glanz-Metallic',
+    'Metalizado brillante',
+    'Metallizzato lucido',
+    'Fényes metál',
+  ],
+  [
+    'Satin metallic',
+    'Metalizat satinat',
+    'Satin-Metallic',
+    'Metalizado satinado',
+    'Metallizzato satinato',
+    'Szatén metál',
+  ],
+  [
+    'Satin pearl',
+    'Perlat satinat',
+    'Satin-Perleffekt',
+    'Perlado satinado',
+    'Perlato satinato',
+    'Szatén gyöngyház',
+  ],
+  [
+    'Matte metallic',
+    'Metalizat mat',
+    'Matt-Metallic',
+    'Metalizado mate',
+    'Metallizzato opaco',
+    'Matt metál',
+  ],
+  [
+    'Colour flip',
+    'Cameleon',
+    'Farbflip',
+    'Camaleón',
+    'Cangiante',
+    'Színváltós',
+  ],
+  [
+    'Satin colour flip',
+    'Cameleon satinat',
+    'Satin-Farbflip',
+    'Camaleón satinado',
+    'Cangiante satinato',
+    'Szatén színváltós',
+  ],
+  [
+    'Diamond sparkle',
+    'Sclipici diamant',
+    'Diamant-Glitzer',
+    'Brillo diamante',
+    'Scintillio diamante',
+    'Gyémántcsillám',
+  ],
+  [
+    'Liquid metal',
+    'Metal lichid',
+    'Flüssigmetall',
+    'Metal líquido',
+    'Metallo liquido',
+    'Folyékony fém',
+  ],
+  [
+    'Brushed metal',
+    'Metal periat',
+    'Gebürstetes Metall',
+    'Metal cepillado',
+    'Metallo spazzolato',
+    'Szálcsiszolt fém',
+  ],
+  [
+    'Carbon fibre',
+    'Fibră de carbon',
+    'Carbonfaser',
+    'Fibra de carbono',
+    'Fibra di carbonio',
+    'Karbon',
+  ],
+  [
+    'Textured',
+    'Texturat',
+    'Strukturiert',
+    'Texturizado',
+    'Testurizzato',
+    'Texturált',
+  ],
+  [
+    'All finishes',
+    'Toate finisajele',
+    'Alle Finishes',
+    'Todos los acabados',
+    'Tutte le finiture',
+    'Minden felület',
+  ],
+  ['Metallic', 'Metalizat', 'Metallic', 'Metalizado', 'Metallizzato', 'Metál'],
+  [
+    'Pearl & flip',
+    'Perlat și cameleon',
+    'Perl & Flip',
+    'Perlado y camaleón',
+    'Perlato e cangiante',
+    'Gyöngyház és színváltós',
+  ],
+  [
+    'Carbon, brushed & textured',
+    'Carbon, periat și texturat',
+    'Carbon, gebürstet & strukturiert',
+    'Carbono, cepillado y texturizado',
+    'Carbonio, spazzolato e testurizzato',
+    'Karbon, szálcsiszolt és texturált',
+  ],
+  [
+    'Pure white',
+    'Alb pur',
+    'Reinweiß',
+    'Blanco puro',
+    'Bianco puro',
+    'Tiszta fehér',
+  ],
+  [
+    'Electric orange',
+    'Portocaliu electric',
+    'Elektrisches Orange',
+    'Naranja eléctrico',
+    'Arancione elettrico',
+    'Élénk narancs',
+  ],
+  [
+    'Sunburst yellow',
+    'Galben solar',
+    'Sonnengelb',
+    'Amarillo sol',
+    'Giallo sole',
+    'Napsárga',
+  ],
+  [
+    'Sky blue',
+    'Albastru cer',
+    'Himmelblau',
+    'Azul cielo',
+    'Azzurro cielo',
+    'Égkék',
+  ],
+  [
+    'Royal purple',
+    'Mov regal',
+    'Königsviolett',
+    'Púrpura real',
+    'Viola reale',
+    'Királylila',
+  ],
+].forEach((entry) => add(...entry));
+add(
+  '{count} film',
+  '{count} folie',
+  '{count} Folie',
+  '{count} vinilo',
+  '{count} pellicola',
+  '{count} fólia',
+);
+add(
+  '{count} films',
+  '{count} folii',
+  '{count} Folien',
+  '{count} vinilos',
+  '{count} pellicole',
+  '{count} fólia',
 );
 
 const storageKey = 'elite-wrap-language-v1';
@@ -1743,7 +2474,11 @@ try {
 } catch (error) {
   console.warn('Language preference cannot be read:', error);
 }
+// A ?lang= link (used by search engines for each language) wins over the
+// saved preference and the browser language.
+const urlLocale = supported(new URLSearchParams(location.search).get('lang'));
 let locale =
+  urlLocale ||
   supported(saved) ||
   [...(navigator.languages || []), navigator.language]
     .map(supported)
@@ -1757,6 +2492,11 @@ export function getLocale() {
 export function setLocale(value, { persist = true } = {}) {
   locale = supported(value) || 'en';
   if (!persist) return;
+  const url = new URL(location.href);
+  if (url.searchParams.has('lang')) {
+    url.searchParams.set('lang', locale);
+    history.replaceState(history.state, '', url);
+  }
   try {
     localStorage.setItem(storageKey, locale);
   } catch (error) {
@@ -1811,6 +2551,13 @@ export function captureStaticTranslations(root = document) {
       root.documentElement.lang = locale;
       root.title = t(titleKey);
       description.content = t(descriptionKey);
+      // Each ?lang= page is its own canonical, so hreflang alternates count.
+      const canonical = root.querySelector('link[rel="canonical"]');
+      if (canonical && new URLSearchParams(location.search).has('lang')) {
+        const url = new URL(canonical.href);
+        url.search = locale === 'en' ? '' : `?lang=${locale}`;
+        canonical.href = url.href;
+      }
     }
     nodes.forEach(({ node, key, leading, trailing }) => {
       if (inScope(node)) node.nodeValue = `${leading}${t(key)}${trailing}`;

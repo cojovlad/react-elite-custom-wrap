@@ -22,9 +22,12 @@ const WIDTH_TARGETS = [
   '.hero-intro .text-link',
   '.brand-strip > span',
   '.section-head > p',
-  '.contact-section .button',
+  '.contact-actions .button',
   '.contact-links a',
-  '.footer > p',
+  '.footer-main > p',
+  '.footer-whatsapp',
+  '.footer-credit',
+  '.dialog-whatsapp > span',
   '.brief-success .button',
 ].join(', ');
 const IGNORED = 'script, style, select, textarea, .sr-only, .toast';
@@ -43,7 +46,7 @@ export function createLayoutStability({
   let timer = 0;
   let pendingScope = null;
   let measuredWidth = 0;
-  const visible = (element) => element.getClientRects().length > 0;
+  const visible = (element) => Boolean(element?.getClientRects().length);
 
   // The nearest box-generating ancestor of each visible text node.
   function textContainers(scope) {

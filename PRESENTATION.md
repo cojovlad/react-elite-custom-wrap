@@ -4,16 +4,17 @@
 
 - A premium website for **Elite Custom Wrap**, a car-wrapping business
 - Designed in the brand colors: **piano black** and **bone white**
+- Uses a refined, softer black that pairs better with bone white and stays easy to read
 - Built so customers can see a new wrap on a real car before visiting the shop
 
 ## The main attraction: live 3D wrap configurator
 
 - Appears first, directly under the header
-- Shows the car in a virtual **wrapping studio** with white walls, strip lights and a polished floor
-- Uses **21 detailed 3D models of real cars from 15 brands**
-- Lists luxury brands first, followed by everyday brands:
-  - Rolls-Royce, Ferrari, Lamborghini, McLaren, Aston Martin, Porsche
-  - BMW, Audi, Tesla, Toyota, Nissan, Chevrolet, Ford, Honda, Volkswagen
+- Shows the car in a realistic **garage studio** with hexagon ceiling lights, studio walls and a tiled floor
+- Uses a **large catalog of detailed 3D models of real cars**, from supercars to everyday family cars
+- Includes the brands most popular in Romania alongside luxury and performance brands
+- Lists luxury brands first, followed by everyday brands
+- Brand tabs scroll smoothly sideways, so even a long list of brands stays tidy on phones and desktops
 - Lets customers find a car by brand, from a model dropdown, or by search
 
 ## What customers can customize
@@ -45,21 +46,42 @@
 - Saves the design automatically on the visitor's device
 - Creates a share link that reopens the same car, colors and finish
 - Downloads a PNG image of the design
-- Downloads a consultation brief with:
-  - Customer name and email
-  - Customer's vehicle
-  - Chosen design, colors and finish
-  - Project notes
-  - A link to reopen the design
+- Can also download a consultation brief as a backup
+
+## Sending a request
+
+- The consultation form collects name, email, optional phone, the customer's vehicle, the services wanted and notes
+- **WhatsApp**: sending opens WhatsApp to the business number, with the full request already written:
+  - Customer details
+  - Vehicle and chosen services
+  - Preview car, finish and the color of every part
+  - Notes and a link that reopens the exact design
+  - The customer only presses Send; no WhatsApp Business account is needed
+- **Email**: the same request is emailed to the business through FormSubmit, once the business email address is added
+  - FormSubmit sends a one-time confirmation email that must be accepted before requests arrive
+- If the email cannot be sent, the customer is told honestly and can still use WhatsApp or download the brief
+
+## WhatsApp contact
+
+- WhatsApp **+40 773 239 125** appears in the contact section, the footer, the consultation form and the mobile menu
+- On phones, a floating WhatsApp button stays in the bottom-right corner
+  - It moves aside so it never covers the configurator's controls
+  - It can be closed for the current visit and returns on the next visit
+- On desktop, there is no floating bubble, just the clear WhatsApp links on the page
 
 ## Business content
 
-- Explains the business's services
+- Explains the business's services:
+  - Color change wraps
+  - Paint protection film, in **clear, matte (stealth) and colored** versions
+  - **Chrome delete**: blacking out chrome trims, window surrounds, grilles and badges in gloss, satin or matte black, or in any color
+  - Bespoke details
 - Shows the wrap process step by step
 - Shows color palette inspiration
 - Answers customer questions in an FAQ
-- Links to the business's Google profile so customers can contact it or leave a review
+- Links to the business's Google profile so customers can find it or leave a review
 - Gives clear calls to action, such as **"Let's create"** and **"Start your project"**
+- Footer credit **"Website crafted by New Folder Solutions"** opens a small window inviting visitors who want a similar website to contact New Folder Solutions
 
 ## Languages
 
@@ -99,23 +121,24 @@
 
 ## Legal and responsible use
 
-- Uses 3D models released under the **CC BY 4.0 license**
-- Credits every model's author, source and license on the site
+- Uses 3D models released under Creative Commons licenses
+- Credits every model's author, source and exact license on the site
 - Excludes models whose licenses restrict commercial use or require derivative works to use the same license
 - Labels colors and panel areas as **visual previews**, not exact final results
 
 ## Current limitations
 
-- The consultation form downloads a brief but does not send it to the business yet
+- Email delivery starts once the business email address is added and confirmed with FormSubmit; until then, requests go through WhatsApp
+- WhatsApp requests are only delivered when the customer presses Send in WhatsApp
 - Panel areas are approximate on some car models
 - Screen colors can look different from real vinyl, so physical samples remain essential
-- The catalog includes 21 cars, not every brand or model
+- The catalog covers many popular cars, but not every brand or model
 
 ## What can grow from here
 
 ### Customer experience
 
-- Add more brands and models, including Mercedes-Benz, Range Rover, Bentley, Volvo, Skoda and Dacia
+- Keep adding brands and models as customers ask for them
 - Add more surfaces, such as bumpers, side skirts, spoilers, brake calipers and window tint
 - Add special finishes: chrome, carbon fiber, color-shift, metallic flake and pearl
 - Add stripes, racing liveries, logos and custom graphics
@@ -126,12 +149,11 @@
 
 ### Business features
 
-- Send consultation requests directly by email
 - Add online booking with available dates
 - Estimate price by vehicle size, material and surfaces
 - Add a before-and-after gallery of completed cars
 - Show Google reviews on the website
-- Add WhatsApp and Instagram contact buttons
+- Connect the WhatsApp Business API for automatic replies and lead tracking
 - Add customer accounts with saved designs
 - Add an admin dashboard for leads, bookings and the gallery
 

@@ -1,0 +1,157 @@
+// Physically based presets for each wrap film material. Values feed the custom
+// paint shader in car-scene.js:
+// roughness / metalness: base film; clearcoat / clearcoatRoughness: top layer;
+// flake: metallic flake sparkle; iridescence: pearl / colour-flip shift;
+// pattern: 0 none, 1 carbon weave, 2 brushed grain, 3 texture.
+export const MATERIALS = {
+  'high-gloss': {
+    label: 'High gloss',
+    roughness: 0.22,
+    metalness: 0,
+    clearcoat: 1,
+    clearcoatRoughness: 0.02,
+  },
+  gloss: {
+    label: 'Gloss',
+    roughness: 0.3,
+    metalness: 0,
+    clearcoat: 1,
+    clearcoatRoughness: 0.05,
+  },
+  metallic: {
+    label: 'Gloss metallic',
+    roughness: 0.36,
+    metalness: 0.6,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
+    flake: 0.55,
+  },
+  pearl: {
+    label: 'Pearl',
+    roughness: 0.3,
+    metalness: 0.2,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
+    flake: 0.25,
+    iridescence: 0.55,
+  },
+  satin: {
+    label: 'Satin',
+    roughness: 0.52,
+    metalness: 0,
+    clearcoat: 0.35,
+    clearcoatRoughness: 0.45,
+  },
+  'satin-metallic': {
+    label: 'Satin metallic',
+    roughness: 0.5,
+    metalness: 0.55,
+    clearcoat: 0.3,
+    clearcoatRoughness: 0.5,
+    flake: 0.45,
+  },
+  'satin-pearl': {
+    label: 'Satin pearl',
+    roughness: 0.5,
+    metalness: 0.2,
+    clearcoat: 0.3,
+    clearcoatRoughness: 0.5,
+    flake: 0.2,
+    iridescence: 0.45,
+  },
+  matte: {
+    label: 'Matte',
+    roughness: 0.86,
+    metalness: 0,
+    clearcoat: 0,
+    clearcoatRoughness: 1,
+  },
+  'matte-metallic': {
+    label: 'Matte metallic',
+    roughness: 0.66,
+    metalness: 0.5,
+    clearcoat: 0,
+    clearcoatRoughness: 1,
+    flake: 0.4,
+  },
+  flip: {
+    label: 'Colour flip',
+    roughness: 0.3,
+    metalness: 0.45,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
+    flake: 0.35,
+    iridescence: 1,
+  },
+  'satin-flip': {
+    label: 'Satin colour flip',
+    roughness: 0.5,
+    metalness: 0.45,
+    clearcoat: 0.3,
+    clearcoatRoughness: 0.5,
+    flake: 0.3,
+    iridescence: 0.9,
+  },
+  diamond: {
+    label: 'Diamond sparkle',
+    roughness: 0.32,
+    metalness: 0.6,
+    clearcoat: 1,
+    clearcoatRoughness: 0.03,
+    flake: 1,
+  },
+  'liquid-metal': {
+    label: 'Liquid metal',
+    roughness: 0.14,
+    metalness: 0.95,
+    clearcoat: 1,
+    clearcoatRoughness: 0.03,
+  },
+  brushed: {
+    label: 'Brushed metal',
+    roughness: 0.4,
+    metalness: 0.85,
+    clearcoat: 0.5,
+    clearcoatRoughness: 0.25,
+    pattern: 2,
+  },
+  carbon: {
+    label: 'Carbon fibre',
+    roughness: 0.4,
+    metalness: 0.15,
+    clearcoat: 1,
+    clearcoatRoughness: 0.05,
+    pattern: 1,
+  },
+  textured: {
+    label: 'Textured',
+    roughness: 0.78,
+    metalness: 0.05,
+    clearcoat: 0,
+    clearcoatRoughness: 1,
+    pattern: 3,
+  },
+};
+
+// Filter groups shown above the film swatches.
+export const MATERIAL_GROUPS = [
+  { id: 'all', label: 'All finishes', materials: null },
+  { id: 'gloss', label: 'Gloss', materials: ['high-gloss', 'gloss'] },
+  {
+    id: 'metallic',
+    label: 'Metallic',
+    materials: ['metallic', 'satin-metallic', 'matte-metallic', 'diamond'],
+  },
+  { id: 'satin', label: 'Satin', materials: ['satin', 'satin-metallic'] },
+  { id: 'matte', label: 'Matte', materials: ['matte', 'matte-metallic'] },
+  {
+    id: 'pearl',
+    label: 'Pearl & flip',
+    materials: ['pearl', 'satin-pearl', 'flip', 'satin-flip'],
+  },
+  {
+    id: 'special',
+    label: 'Carbon, brushed & textured',
+    materials: ['carbon', 'brushed', 'textured', 'liquid-metal'],
+  },
+];
