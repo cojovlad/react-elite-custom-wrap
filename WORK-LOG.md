@@ -78,6 +78,15 @@
 - Speed (Core Web Vitals): Three.js and the 3D scene load as a separate chunk; the main script went from 920 KB to 230 KB, so text and controls appear first.
 - When the domain is known, build with `SITE_URL`, for example create `.env.local` with `SITE_URL=https://www.your-domain.ro` and run `npm run build`. This adds canonical, `og:url`, hreflang links, absolute image URLs, `sitemap.xml` and the `Sitemap:` line in `robots.txt`.
 - After publishing: add the site to Google Search Console and submit `sitemap.xml`; link the website from the Google Business Profile and Instagram bio.
+## Security and speed (no visible changes)
+
+- 3D models compressed losslessly (meshopt without quantisation, PNG textures to lossless WebP): 754 MB → 605 MB in total, for example Rolls-Royce Ghost 35.5 → 16.3 MB and the default BMW M4 22.7 → 14.3 MB. Renders were compared pixel by pixel against the originals (no difference). Originals are backed up outside the project.
+- CSS now goes through Vite (minified, cache-busted file name); the main font is preloaded.
+- Content Security Policy on the built site (only own scripts, WebAssembly for the 3D decoders, FormSubmit as the only external connection).
+- `public/_headers` (Netlify / Cloudflare Pages): HSTS, nosniff, no framing, referrer and permissions policy, long caching for assets, fonts and models.
+- Search fields have a length limit; all external links use `noopener noreferrer`; `npm audit`: 0 vulnerabilities.
+- Loading skeleton: an inline-styled placeholder (header, brand tabs, studio and colour panel) appears instantly and fades out once the page is translated and the font is ready, so English text no longer flashes before the chosen language. It falls back to fading out on its own after 12 s and is hidden when JavaScript is disabled.
+
 ## Still to do
 
 - Add the business email in `src/config.js` and confirm the FormSubmit activation email.

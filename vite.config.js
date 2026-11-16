@@ -101,10 +101,39 @@ function seo(siteUrl) {
   };
 }
 
+// Content Security Policy for the built site only (the dev server needs inline
+// scripts for hot reload). blob:/wasm are required by the 3D model decoders.
+export const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'wasm-unsafe-eval'",
+  "worker-src 'self' blob:",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob:",
+  "font-src 'self'",
+  "connect-src 'self' blob: data: https://formsubmit.co",
+  "form-action 'self' https://formsubmit.co",
+  "object-src 'none'",
+  "base-uri 'self'",
+].join('; ');
+
+function security() {
+  return {
+    name: 'elite-security',
+    apply: 'build',
+    transformIndexHtml: () => [
+      {
+        tag: 'meta',
+        attrs: { 'http-equiv': 'Content-Security-Policy', content: CSP },
+        injectTo: 'head-prepend',
+      },
+    ],
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
-    plugins: [seo(env.SITE_URL ?? '')],
+    plugins: [security(), seo(env.SITE_URL ?? '')],
     build: {
       // Three.js is split into its own lazily loaded chunk.
       chunkSizeWarningLimit: 800,

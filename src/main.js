@@ -1435,3 +1435,15 @@ window.addEventListener('pagehide', (event) => {
 });
 updateBrandOverflow();
 scheduleWhatsappYield();
+
+// Reveal the page once text is translated and the brand font is ready.
+Promise.race([
+  document.fonts?.ready,
+  new Promise((resolve) => setTimeout(resolve, 1500)),
+]).then(() =>
+  requestAnimationFrame(() => {
+    const skeleton = $('#page-skeleton');
+    skeleton.classList.add('is-done');
+    setTimeout(() => skeleton.remove(), 600);
+  }),
+);
