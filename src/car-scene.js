@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 import { VEHICLES } from './vehicles.js';
 import { MATERIALS } from './materials.js';
 import { t } from './i18n.js';
@@ -24,6 +25,9 @@ const PART_INDEX = Object.fromEntries(
 // Paint regions on combined body meshes plus the parts that are separate meshes.
 const WRAP_SHADER_COMMON = `
 varying vec3 wrapPosition;
+varying vec3 wrapNormal;
+varying vec3 wrapView;
+varying vec3 wrapAxis;
 uniform vec3 wrapColors[6];
 uniform vec3 wrapFlips[6];
 uniform vec4 wrapParams[6];
@@ -80,37 +84,59 @@ if (!wrapActive) {
 } else {
   diffuseColor.rgb *= wrapColors[wrapIndex];
   if (wrapF.z > 0.5 && wrapF.z < 1.5) {
-    // Twill carbon weave.
-    vec2 uv = vec2(p.x + p.z * 0.7, p.y + p.z * 0.3) * 34.0;
+    // 2x2 twill carbon weave, projected on the panel's dominant plane. Each
+    // tow is a bundle of fibres, so it brightens when the view runs along its
+    // fibres and darkens across them: the checker flips as the car turns.
+    vec3 an = abs(normalize(wrapNormal));
+    vec2 uv = an.y >= max(an.x, an.z) ? p.xz : an.z >= an.x ? p.xy : p.zy;
+    vec3 du = an.y >= max(an.x, an.z) || an.z >= an.x ? vec3(1, 0, 0) : vec3(0, 0, 1);
+    vec3 dv = an.y >= max(an.x, an.z) ? vec3(0, 0, 1) : vec3(0, 1, 0);
+    uv *= 55.0;
     vec2 cell = floor(uv);
     vec2 f = fract(uv);
-    float warp = step(1.0, mod(cell.x + floor(cell.y * 0.5) * 2.0 + cell.y, 2.0));
-    float fiber = mix(f.y, f.x, warp);
-    float sheen = 0.55 + 0.45 * sin(fiber * 3.14159);
-    diffuseColor.rgb *= mix(0.45, 1.35, sheen * (0.75 + 0.25 * warp));
-    wrapRoughness += (1.0 - sheen) * 0.15;
+    bool warp = mod(cell.x + cell.y, 4.0) < 2.0;
+    float tow = sin((warp ? f.x : f.y) * 3.14159);
+    float along = abs(dot(warp ? dv : du, normalize(wrapView)));
+    float resolved = 1.0 - smoothstep(0.5, 1.2, length(fwidth(uv)));
+    // The pattern lives in the fibres' graphite sheen under the clear layer,
+    // not in their near-black colour.
+    float shade = mix(0.45, tow * mix(0.3, 1.0, along), resolved);
+    vec3 fibreTint = diffuseColor.rgb / max(max(diffuseColor.r, max(diffuseColor.g, diffuseColor.b)), 0.02);
+    diffuseColor.rgb = mix(diffuseColor.rgb, fibreTint * 0.16, shade);
+    wrapP.y = mix(0.1, 0.8, shade);
+    wrapRoughness += (1.0 - tow) * 0.15 * resolved;
   } else if (wrapF.z > 1.5 && wrapF.z < 2.5) {
-    float grain = wrapHash(vec3(0.0, floor(p.y * 1400.0), floor(p.z * 1400.0)));
-    diffuseColor.rgb *= 0.88 + 0.22 * grain;
-    wrapRoughness += (grain - 0.5) * 0.18;
+    // Brushed grain along the car; the anisotropic highlight does the rest.
+    vec2 grainCell = p.yz * 1400.0;
+    float resolved = 1.0 - smoothstep(0.6, 1.4, length(fwidth(grainCell)));
+    float grain = wrapHash(vec3(0.0, floor(grainCell)));
+    diffuseColor.rgb *= 0.99 + (grain - 0.5) * 0.22 * resolved;
+    wrapRoughness += (grain - 0.5) * 0.18 * resolved;
   } else if (wrapF.z > 2.5) {
-    float bump = wrapNoise(p * 160.0);
+    float resolved = 1.0 - smoothstep(0.6, 1.4, length(fwidth(p * 160.0)));
+    float bump = mix(0.5, wrapNoise(p * 160.0), resolved);
     diffuseColor.rgb *= 0.9 + 0.15 * bump;
     wrapRoughness += (bump - 0.5) * 0.2;
   }
 }`;
 const WRAP_SHADER_NORMAL = `
 if (wrapF.x > 0.0) {
-  // Metallic flakes: tiny randomly tilted facets under the clear layer.
-  vec3 flake = wrapHash3(floor(wrapPosition * 620.0)) * 2.0 - 1.0;
-  normal = normalize(normal + flake * 0.24 * wrapF.x);
+  // Metallic flakes: tiny randomly tilted facets under the clear layer. Once a
+  // flake is smaller than a pixel it would only shimmer as noise, so it blends
+  // into a slightly broader, smoother metallic sheen instead (diamond films
+  // keep coarser, visible glitter).
+  vec3 flakeCell = wrapPosition * (wrapF.x > 0.9 ? 300.0 : 620.0);
+  float sparkle = 1.0 - smoothstep(0.35, 1.1, length(fwidth(flakeCell)));
+  vec3 flake = wrapHash3(floor(flakeCell)) * 2.0 - 1.0;
+  normal = normalize(normal + flake * 0.24 * wrapF.x * sparkle);
+  roughnessFactor = clamp(roughnessFactor + 0.12 * wrapF.x * (1.0 - sparkle), 0.04, 1.0);
 }
 if (wrapF.z > 2.5) {
   vec3 q = wrapPosition * 160.0;
   vec3 slope = vec3(wrapNoise(q + vec3(0.5, 0, 0)) - wrapNoise(q - vec3(0.5, 0, 0)),
     wrapNoise(q + vec3(0, 0.5, 0)) - wrapNoise(q - vec3(0, 0.5, 0)),
     wrapNoise(q + vec3(0, 0, 0.5)) - wrapNoise(q - vec3(0, 0, 0.5)));
-  normal = normalize(normal + slope * 0.35);
+  normal = normalize(normal + slope * 0.35 * (1.0 - smoothstep(0.6, 1.4, length(fwidth(q)))));
 }
 if (wrapF.w > 0.5) {
   // Colour-flip films shift towards the second colour at grazing angles.
@@ -156,6 +182,9 @@ const MAX_CAMERA_DISTANCE = 9.8;
 const HEX_EDGE = 0.62;
 const HEX_Y = GARAGE.height - 0.42;
 const LED_COLOR = '#f4f8ff';
+// Studio HDRI blended into the paint reflections: Poly Haven "Studio Small 03"
+// (1k, CC0).
+const ENVIRONMENT_HDR = { url: '/env/studio.hdr', intensity: 0.5 };
 
 function seededRandom(seed) {
   return () => {
@@ -568,21 +597,10 @@ function buildGarage(renderer) {
 
   // Reflection environment: a compact dark bay whose whole ceiling is the
   // honeycomb (boosted LEDs), so gloss paint picks up hexagon highlights even
-  // from the low hero camera.
+  // from the low hero camera. With a studio HDRI the bay's walls open onto the
+  // photographed studio, so the paint also reflects real softboxes and walls.
   const envHalfX = 7;
   const envHalfZ = 6;
-  const envScene = new THREE.Scene();
-  const envRoom = new THREE.Mesh(
-    new THREE.BoxGeometry(envHalfX * 2, height, envHalfZ * 2),
-    new THREE.MeshBasicMaterial({ color: '#0c0c0d', side: THREE.BackSide }),
-  );
-  envRoom.position.y = height / 2;
-  const envFloor = new THREE.Mesh(
-    new THREE.PlaneGeometry(envHalfX * 2, envHalfZ * 2),
-    new THREE.MeshBasicMaterial({ color: '#1c1d1f' }),
-  );
-  envFloor.rotation.x = -Math.PI / 2;
-  envFloor.position.y = 0.01;
   const envGrid = hexGrid([
     { x: -3.4, z: 0, width: 6.2, depth: envHalfZ * 2 },
     { x: 3.4, z: 0, width: 6.2, depth: envHalfZ * 2 },
@@ -590,35 +608,132 @@ function buildGarage(renderer) {
   const envMatrices = envGrid.edges.map((edge) =>
     matrixFor(edge.x, HEX_Y, edge.z, HEX_EDGE - 0.04, 0.08, 0.14, -edge.angle),
   );
-  for (const [x, z, rotation, length] of [
+  const stripMatrices = [
     [0, -envHalfZ + 0.05, 0, envHalfX * 2],
     [envHalfX - 0.05, 0, Math.PI / 2, envHalfZ * 2],
     [0, envHalfZ - 0.05, 0, envHalfX * 2],
     [-envHalfX + 0.05, 0, Math.PI / 2, envHalfZ * 2],
-  ])
-    envMatrices.push(matrixFor(x, stripY, z, length, 0.05, 0.05, rotation));
-  const envLedMaterial = new THREE.MeshBasicMaterial({
-    color: new THREE.Color(LED_COLOR).multiplyScalar(6),
-  });
-  const envLeds = new THREE.InstancedMesh(
-    unitBox,
-    envLedMaterial,
-    envMatrices.length,
+  ].map(([x, z, rotation, length]) =>
+    matrixFor(x, stripY, z, length, 0.05, 0.05, rotation),
   );
-  envMatrices.forEach((matrix, index) => envLeds.setMatrixAt(index, matrix));
-  envScene.add(envRoom, envFloor, envLeds);
-  const generator = new THREE.PMREMGenerator(renderer);
-  const environment = generator.fromScene(envScene, 0.015, 0.1, 60, {
-    position: new THREE.Vector3(0, 1, 0),
-  });
-  generator.dispose();
-  envRoom.geometry.dispose();
-  envRoom.material.dispose();
-  envFloor.geometry.dispose();
-  envFloor.material.dispose();
-  envLedMaterial.dispose();
-  envLeds.dispose();
-  return { group, environment };
+  function makeEnvironment(hdr = null) {
+    const envScene = new THREE.Scene();
+    const disposables = [];
+    const add = (mesh) => {
+      envScene.add(mesh);
+      disposables.push(mesh.geometry, mesh.material);
+      return mesh;
+    };
+    if (hdr) {
+      envScene.background = hdr;
+      envScene.backgroundIntensity = ENVIRONMENT_HDR.intensity;
+      const ceiling = add(
+        new THREE.Mesh(
+          new THREE.PlaneGeometry(envHalfX * 2, envHalfZ * 2),
+          new THREE.MeshBasicMaterial({ color: '#0c0c0d' }),
+        ),
+      );
+      ceiling.rotation.x = Math.PI / 2;
+      ceiling.position.y = height;
+    } else {
+      const room = add(
+        new THREE.Mesh(
+          new THREE.BoxGeometry(envHalfX * 2, height, envHalfZ * 2),
+          new THREE.MeshBasicMaterial({
+            color: '#0c0c0d',
+            side: THREE.BackSide,
+          }),
+        ),
+      );
+      room.position.y = height / 2;
+    }
+    const envFloor = add(
+      new THREE.Mesh(
+        new THREE.PlaneGeometry(envHalfX * 2, envHalfZ * 2),
+        new THREE.MeshBasicMaterial({ color: '#1c1d1f' }),
+      ),
+    );
+    envFloor.rotation.x = -Math.PI / 2;
+    envFloor.position.y = 0.01;
+    const matrices = hdr ? envMatrices : [...envMatrices, ...stripMatrices];
+    const envLedMaterial = new THREE.MeshBasicMaterial({
+      color: new THREE.Color(LED_COLOR).multiplyScalar(6),
+    });
+    const envLeds = new THREE.InstancedMesh(
+      unitBox,
+      envLedMaterial,
+      matrices.length,
+    );
+    matrices.forEach((matrix, index) => envLeds.setMatrixAt(index, matrix));
+    envScene.add(envLeds);
+    const generator = new THREE.PMREMGenerator(renderer);
+    const environment = generator.fromScene(envScene, 0.015, 0.1, 60, {
+      position: new THREE.Vector3(0, 1, 0),
+    });
+    generator.dispose();
+    disposables.forEach((item) => item.dispose());
+    envLedMaterial.dispose();
+    envLeds.dispose();
+    return environment;
+  }
+  return { group, environment: makeEnvironment(), makeEnvironment };
+}
+
+// Downloaded previews carry the studio's name and the site credit in the
+// bottom-right corner, where photo credits usually sit.
+function brandedSnapshot(source) {
+  const { width, height } = source;
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#1b1b1d';
+  context.fillRect(0, 0, width, height);
+  context.drawImage(source, 0, 0);
+  const size = Math.max(13, Math.round(Math.min(width, height) * 0.034));
+  const margin = Math.round(size * 1.3);
+  const shade = context.createLinearGradient(0, height - size * 6, 0, height);
+  shade.addColorStop(0, 'rgba(10, 10, 11, 0)');
+  shade.addColorStop(1, 'rgba(10, 10, 11, 0.6)');
+  context.fillStyle = shade;
+  context.fillRect(0, height - size * 6, width, size * 6);
+  const line = (text, font, color, spacing, y) => {
+    context.font = font;
+    context.letterSpacing = `${spacing}px`;
+    context.fillStyle = color;
+    // Letter spacing also trails the last glyph; shift it back into line.
+    context.fillText(text, width - margin + spacing, y);
+  };
+  context.textAlign = 'right';
+  context.textBaseline = 'alphabetic';
+  context.shadowColor = 'rgba(0, 0, 0, 0.45)';
+  context.shadowBlur = size * 0.4;
+  const credit = height - margin;
+  const name = credit - size * 1.05;
+  line(
+    'ELITE CUSTOM WRAP',
+    `${size}px Studio, Arial, sans-serif`,
+    '#e8e2d6',
+    Math.round(size * 0.24),
+    name,
+  );
+  context.shadowBlur = 0;
+  context.fillStyle = 'rgba(232, 226, 214, 0.45)';
+  const ruleWidth = size * 2.2;
+  context.fillRect(
+    width - margin - ruleWidth,
+    name + size * 0.38,
+    ruleWidth,
+    Math.max(1, size * 0.04),
+  );
+  line(
+    'Photo powered by New Folder Solutions',
+    `${Math.round(size * 0.46)}px Studio, Arial, sans-serif`,
+    '#b7b2a7',
+    Math.round(size * 0.04),
+    credit,
+  );
+  return canvas;
 }
 
 export function createCarScene(
@@ -635,8 +750,10 @@ export function createCarScene(
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   renderer.setClearColor(0, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.85;
+  // Khronos PBR Neutral keeps a film's colour true to its swatch (ACES lifted
+  // mid-tones by ~40% and shifted hues).
+  renderer.toneMapping = THREE.NeutralToneMapping;
+  renderer.toneMappingExposure = 0.8;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.domElement.setAttribute('aria-hidden', 'true');
@@ -651,9 +768,31 @@ export function createCarScene(
   controls.autoRotateSpeed = 1;
   let baseMinDistance = 4;
   let baseMaxDistance = 10;
-  const { group: studio, environment } = buildGarage(renderer);
+  const {
+    group: studio,
+    environment: garageEnvironment,
+    makeEnvironment,
+  } = buildGarage(renderer);
+  let environment = garageEnvironment;
   scene.environment = environment.texture;
   scene.environmentIntensity = 1;
+  let studioEnvironment;
+  // The studio HDRI waits for the first car so the model downloads first.
+  function loadStudioEnvironment() {
+    studioEnvironment ??= new HDRLoader()
+      .loadAsync(ENVIRONMENT_HDR.url)
+      .then((hdr) => {
+        if (disposed) return hdr.dispose();
+        hdr.mapping = THREE.EquirectangularReflectionMapping;
+        const next = makeEnvironment(hdr);
+        hdr.dispose();
+        environment.dispose();
+        environment = next;
+        scene.environment = next.texture;
+        schedule();
+      })
+      .catch(() => {});
+  }
   scene.add(new THREE.HemisphereLight(0xf2f5ff, 0x2a2a2c, 1.1));
   const light = new THREE.DirectionalLight(0xf6f8ff, 2.6);
   light.position.set(1.5, 8, 2.5);
@@ -826,6 +965,7 @@ export function createCarScene(
       iridescenceIOR: 1.6,
       iridescenceThicknessMinimum: 220,
       iridescenceThicknessMaximum: 560,
+      anisotropy: 1,
     });
     material.defines = {
       WRAP_PART: part === 'body' ? -1 : PART_INDEX[part],
@@ -836,11 +976,15 @@ export function createCarScene(
       shader.vertexShader = shader.vertexShader
         .replace(
           '#include <common>',
-          '#include <common>\nvarying vec3 wrapPosition;',
+          '#include <common>\nvarying vec3 wrapPosition;\nvarying vec3 wrapNormal;\nvarying vec3 wrapView;\nvarying vec3 wrapAxis;',
         )
         .replace(
           '#include <begin_vertex>',
-          '#include <begin_vertex>\nwrapPosition = position;',
+          `#include <begin_vertex>
+          wrapPosition = position;
+          wrapNormal = normal;
+          wrapView = transpose(mat3(modelMatrix)) * (cameraPosition - (modelMatrix * vec4(position, 1.0)).xyz);
+          wrapAxis = normalize((modelViewMatrix * vec4(1.0, 0.0, 0.0, 0.0)).xyz);`,
         );
       shader.fragmentShader = shader.fragmentShader
         .replace(
@@ -872,13 +1016,25 @@ export function createCarScene(
           #endif
           #ifdef USE_IRIDESCENCE
             material.iridescence = wrapF.y;
+          #endif
+          #ifdef USE_ANISOTROPY
+            // Brushed films: grooves run along the car, so highlights stretch
+            // across them; every other finish stays isotropic.
+            vec3 wrapBrush = wrapAxis - normal * dot(wrapAxis, normal);
+            wrapBrush = dot(wrapBrush, wrapBrush) > 1e-6
+              ? normalize(wrapBrush)
+              : normalize(cross(normal, vec3(0.0, 1.0, 0.0)) + vec3(1e-4));
+            material.anisotropy = wrapF.z > 1.5 && wrapF.z < 2.5 ? 0.55 : 0.0;
+            material.alphaT = mix(pow2(material.roughness), 1.0, pow2(material.anisotropy));
+            material.anisotropyT = cross(normal, wrapBrush);
+            material.anisotropyB = wrapBrush;
           #endif`,
         );
     };
     material.customProgramCacheKey = () =>
       mirrorsOnly
-        ? 'wrap-mirror-caps-v1'
-        : `wrap-film-v2-${part}-${map ? 'map' : 'plain'}`;
+        ? 'wrap-mirror-caps-v2'
+        : `wrap-film-v3-${part}-${map ? 'map' : 'plain'}`;
     return material;
   }
   function paintBody(mesh, mirrorsOnly = false) {
@@ -1108,7 +1264,7 @@ export function createCarScene(
           if (mesh.userData.partId !== 'body') return;
           const positions = mesh.geometry.getAttribute('position');
           const mirrorsOnly =
-            mesh.material.customProgramCacheKey() === 'wrap-mirror-caps-v1';
+            mesh.material.customProgramCacheKey() === 'wrap-mirror-caps-v2';
           for (let vertex = 0; vertex < positions.count; vertex++) {
             point.fromBufferAttribute(positions, vertex);
             const part = partAt(point, Boolean(vehicle.roadster), mirrorZone);
@@ -1116,6 +1272,7 @@ export function createCarScene(
           }
         });
         onLoad?.(id, [...availableParts]);
+        loadStudioEnvironment();
       },
       (event) => {
         if (version === loadVersion && !disposed && event.total) {
@@ -1218,7 +1375,7 @@ export function createCarScene(
       renderer.render(scene, camera);
       const anchor = document.createElement('a');
       anchor.download = filename;
-      anchor.href = renderer.domElement.toDataURL('image/png');
+      anchor.href = brandedSnapshot(renderer.domElement).toDataURL('image/png');
       anchor.click();
     },
     dispose() {

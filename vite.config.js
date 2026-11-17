@@ -198,7 +198,7 @@ function serviceWorker() {
     },
     closeBundle() {
       const versions = {};
-      for (const folder of ['models', 'decoders', 'fonts'])
+      for (const folder of ['models', 'env', 'decoders', 'fonts'])
         for (const file of files(resolve(outDir, folder)))
           versions[`/${relative(outDir, file).split(sep).join('/')}`] =
             createHash('sha256')

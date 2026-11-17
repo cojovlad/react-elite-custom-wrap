@@ -162,6 +162,15 @@
 - `.env.example` documents `SITE_URL`; `.env` is no longer committed.
 - Tests: 43 unit, 14 e2e scenarios.
 
+## More realistic car and branded downloads
+
+- Downloaded studio images carry a discreet credit in the bottom-right corner: "ELITE CUSTOM WRAP" and, below it, "Photo powered by New Folder Solutions".
+- Reflections come from a real photographed studio (HDRI "Studio Small 03" by Poly Haven, CC0 – free for commercial use, no credit required; `public/env/studio.hdr`, 1.7 MB). It loads after the car appears, so the first view is not slower, and it is cached for 30 days.
+- Film colours on the car now match the swatches (neutral tone mapping instead of ACES, which made mid tones look about 40% lighter, e.g. Nardo grey).
+- Metallic and pearl films: the flakes melt into a fine sheen at a distance instead of looking like coarse sand. Diamond films keep their glitter.
+- Carbon: a real 2×2 twill weave whose fibres brighten and darken as the car turns, instead of grey noise.
+- Brushed metal: a stretched (anisotropic) highlight along the brush direction, like real brushed aluminium.
+
 ## Still to do
 
 - Fill in `COMPANY` in `src/config.js` (legal name, Trade Register no., CUI, registered office) exactly as on the ONRC certificate.

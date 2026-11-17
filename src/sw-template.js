@@ -2,9 +2,9 @@
 // placeholders and writes the result to dist/sw.js.
 //
 // Cache-first for files that never change under the same name: hashed build
-// assets, and models, decoders and fonts keyed by their content hash. HTML and
+// assets, and models, the studio HDRI, decoders and fonts keyed by their content hash. HTML and
 // every other request go straight to the network, unchanged.
-const FILES = self.__FILES__; // path -> content hash (models, decoders, fonts)
+const FILES = self.__FILES__; // path -> content hash (models, env, decoders, fonts)
 const ASSETS = new Set(self.__ASSETS__); // current hashed /assets/ paths
 const FILE_CACHE = 'ecw-files-v1';
 const ASSET_CACHE = 'ecw-assets-v1';
