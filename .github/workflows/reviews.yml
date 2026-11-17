@@ -1,0 +1,33 @@
+name: Refresh Google reviews
+
+# Weekly, and on demand, saves the latest Google reviews into
+# src/reviews.json. Needs the GOOGLE_PLACES_API_KEY repository secret; without
+# it the job does nothing.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/fetch-reviews.mjs
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+      - name: Commit new reviews
+        run: |
+          if git diff --quiet -- src/reviews.json; then exit 0; fi
+          npx --yes prettier@3 --write src/reviews.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Refresh Google reviews"
+          git push

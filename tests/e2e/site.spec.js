@@ -188,6 +188,70 @@ test('services section offers front PPF', async ({ page }) => {
   ).toBeChecked();
 });
 
+test('work gallery opens studio photos in a viewer', async ({ page }) => {
+  await page.goto('/?lang=ro');
+  const items = page.locator('#work .work-item');
+  await expect(items).toHaveCount(8);
+  await expect(items.first().locator('img')).toHaveAttribute(
+    'alt',
+    /Elite Custom Wrap din Cluj-Napoca/,
+  );
+  await items.nth(2).locator('.work-open').click();
+  const dialog = page.locator('#work-dialog');
+  await expect(dialog).toBeVisible();
+  await expect(page.locator('#work-dialog-car')).toHaveText(
+    'Alfa Romeo Giulietta',
+  );
+  await expect(page.locator('#work-dialog-finish')).toHaveText(
+    'Roșu lucios, plafon negru',
+  );
+  await expect(page.locator('#work-dialog-count')).toHaveText('03 / 08');
+  await expect
+    .poll(() =>
+      page
+        .locator('#work-dialog-image')
+        .evaluate((image) => image.complete && image.naturalWidth),
+    )
+    .toBeGreaterThan(0);
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#work-dialog-count')).toHaveText('04 / 08');
+  await page.locator('#work-prev').click();
+  await page.locator('#work-prev').click();
+  await expect(page.locator('#work-dialog-count')).toHaveText('02 / 08');
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+});
+
+test('reviews section shows client reviews and Google links', async ({
+  page,
+}) => {
+  await page.goto('/?lang=ro');
+  const section = page.locator('#reviews');
+  await expect(section.locator('h2')).toContainText('clienții noștri');
+  await expect(
+    section.locator(
+      'a[href*="writereview?placeid=ChIJwdTFXg0LSUcRJOha7a3XNB0"]',
+    ),
+  ).toHaveText('Lasă o recenzie pe Google ↗');
+  await expect(
+    section.locator(
+      '.reviews-links a[href*="query_place_id=ChIJwdTFXg0LSUcRJOha7a3XNB0"]',
+    ),
+  ).toContainText('Citește recenziile noastre pe Google');
+  const card = section.locator('.review-card:not([data-clone])', {
+    hasText: 'Maghiar Răzvan',
+  });
+  await section.scrollIntoViewIfNeeded();
+  await expect(card).toContainText('atent la detalii');
+  await expect
+    .poll(() =>
+      card
+        .locator('img.review-avatar')
+        .evaluate((image) => image.complete && image.naturalWidth),
+    )
+    .toBeGreaterThan(0);
+});
+
 test('shared design link restores the design', async ({ page }) => {
   await page.goto(
     '/?vehicle=audi-rs7&body=af222b%7Ehigh-gloss&hood=af222b%7Ehigh-gloss&roof=af222b%7Ehigh-gloss&mirrors=af222b%7Ehigh-gloss&wheels=skyfol-piano-black&accents=skyfol-champagne-gold&lang=en',

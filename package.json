@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/fetch-reviews.mjs",
     "build": "vite build",
+    "reviews": "node scripts/fetch-reviews.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",

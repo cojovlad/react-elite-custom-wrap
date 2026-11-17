@@ -114,7 +114,8 @@ export const CSP = [
   "script-src 'self' 'wasm-unsafe-eval'",
   "worker-src 'self' blob:",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  // Google profile photos of reviewers in the reviews carousel.
+  "img-src 'self' data: blob: https://*.googleusercontent.com",
   "font-src 'self'",
   "connect-src 'self' blob: data: https://formsubmit.co",
   "form-action 'self' https://formsubmit.co",

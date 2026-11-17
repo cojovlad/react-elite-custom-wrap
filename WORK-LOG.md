@@ -73,11 +73,11 @@
 - Keyword-rich but premium title and description in all 6 languages (e.g. RO: "Colantare auto premium, folie PPF și chrome delete"); hero eyebrow now reads "PREMIUM CAR WRAPPING & PPF".
 - Language URLs: `?lang=ro`, `?lang=de`, ... open the site directly in that language, so each language can be indexed separately (hreflang + self canonical).
 - Structured data: `AutoBodyShop` (services catalogue, phone, map, languages), `WebSite`, and an automatic `FAQPage` built from the visible FAQ at build time (`vite.config.js`).
-- Share image `public/og-image.jpg` (1200×630, real render from the configurator) for WhatsApp/Facebook/Instagram/Google previews; large Twitter card.
+- Share image `public/og-image.jpg` (1200×630, real render from the configurator) for WhatsApp/Facebook/Google previews; large Twitter card.
 - App icons (`apple-touch-icon.png`, `icon-512.png`) and `site.webmanifest`.
 - Speed (Core Web Vitals): Three.js and the 3D scene load as a separate chunk; the main script went from 920 KB to 230 KB, so text and controls appear first.
 - When the domain is known, build with `SITE_URL`, for example create `.env.local` with `SITE_URL=https://www.your-domain.ro` and run `npm run build`. This adds canonical, `og:url`, hreflang links, absolute image URLs, `sitemap.xml` and the `Sitemap:` line in `robots.txt`.
-- After publishing: add the site to Google Search Console and submit `sitemap.xml`; link the website from the Google Business Profile and Instagram bio.
+- After publishing: add the site to Google Search Console and submit `sitemap.xml`; link the website from the Google Business Profile.
 ## Security and speed (no visible changes)
 
 - 3D models compressed losslessly (meshopt without quantisation, PNG textures to lossless WebP): 754 MB → 605 MB in total, for example Rolls-Royce Ghost 35.5 → 16.3 MB and the default BMW M4 22.7 → 14.3 MB. Renders were compared pixel by pixel against the originals (no difference). Originals are backed up outside the project.
@@ -130,12 +130,25 @@
 - Visible mentions that fit the design: the hero line "COLANTARE AUTO PREMIUM & PPF · CLUJ-NAPOCA", "Găsește atelierul din Cluj-Napoca pe Google Maps", a footer line "Atelier de colantare auto și folie PPF în Cluj-Napoca, România" and a new FAQ item "Unde este atelierul?" (also published as FAQ rich results).
 - Structured data: city-level address (Cluj-Napoca, Cluj, RO), service area Cluj-Napoca and Romania, `sameAs` link to the Google business profile, and `geo.region` / `geo.placename` meta tags.
 
+## Our work and Google reviews
+
+- New section "03 / Our work" (after services, also in the menu): 8 real studio photos with car and finish captions in every language and descriptive alt text for SEO (e.g. "BMW M4 negru lucios sub luminile hexagonale ale studioului Elite Custom Wrap din Cluj-Napoca").
+  - Number plates are pixelated and blurred. The original photos are kept in `photos/originals/` (not uploaded to Git).
+  - Each photo is served as WebP in 3 sizes (`public/work/`), so the gallery grid downloads about 40–90 KB per photo; the viewer loads the larger size.
+  - Clicking a photo opens a full-screen viewer: arrows, keyboard, swipe on phones, photo counter.
+- New section "In their words" before the contact section: a floating carousel of Google reviews (avatar, name, date, stars, text; each card opens the review on Google). It glides slowly by itself, pauses on hover, touch or focus and when off screen, can be dragged or stepped with the arrows, and stays still with reduced motion. Buttons "Read our reviews on Google" and "Leave a Google review" are always shown.
+- No fixed "rated 5.0 from N reviews" line, since it could not stay live; the section links to Google instead.
+- Reviews come from `src/reviews.json`. It starts with the 7 real Google reviews that have text (copied by hand, with each reviewer's Google photo in `public/reviews/`). Dates are shown like on Google ("acum 2 săptămâni"). Cards without their own Google link open the studio's Google reviews. With no reviews, only the two Google buttons are shown.
+  - To fill it automatically: create a Google Cloud key with "Places API (New)" enabled (it fits in the free tier), then either run `GOOGLE_PLACES_API_KEY=... npm run reviews` locally or add it as the GitHub repository secret `GOOGLE_PLACES_API_KEY`. `.github/workflows/reviews.yml` then refreshes the reviews every Monday (or on demand) and commits the file, and every `npm run build` refreshes it too when the key is set.
+  - Google returns at most 5 reviews per request; the script keeps earlier ones, so the list grows over time. Reviews can also be added by hand to `src/reviews.json` (`author`, `rating`, `text`, `time` as the approximate day, optional `photo` such as `/reviews/name.png`). When Google returns a review by the same name, it replaces the hand-added copy (exact date and link), so nothing is shown twice.
+- All Instagram references removed.
+- Tests: 41 unit, 12 e2e scenarios.
+
 ## Still to do
 
 - The first request sends a FormSubmit activation email to `elite.custom_cluj@yahoo.com`; click "Activate Form" in it, otherwise emails are not delivered (WhatsApp works regardless).
 - Add the real domain (`SITE_URL` for canonical URL, sitemap, Open Graph image), then submit the sitemap in Google Search Console and link the site from the Google Business Profile.
-- Add the street address, opening hours and coordinates, plus the Instagram profile, to the structured data.
-- Add a gallery of real projects (with descriptive alt text, e.g. "BMW M4 colantat Satin Black, Cluj-Napoca").
+- Add the street address, opening hours and coordinates to the structured data.
 - Buy/confirm licences for the NC/SA models listed in `attributions.json`.
 - More Romanian-popular models (Skoda, more Dacia, VW SUVs, Opel Astra, Toyota RAV4).
 - Review the changes, then commit and push (nothing committed yet).

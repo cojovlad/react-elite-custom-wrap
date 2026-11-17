@@ -1,0 +1,62 @@
+{
+  "source": "https://www.google.com/maps/search/?api=1&query=Car+wrapping&query_place_id=ChIJwdTFXg0LSUcRJOha7a3XNB0",
+  "updated": "2026-11-17",
+  "reviews": [
+    {
+      "author": "ROKET BUNNY nothingness",
+      "photo": "/reviews/roket-bunny.png",
+      "rating": 5,
+      "text": "super calitate si seriozitate",
+      "language": "ro",
+      "time": "2026-11-10"
+    },
+    {
+      "author": "Maghiar Răzvan",
+      "photo": "/reviews/maghiar-razvan.png",
+      "rating": 5,
+      "text": "Foarte multumit! Lucreaza super profi, rapid si atent la detalii.",
+      "language": "ro",
+      "time": "2026-11-03"
+    },
+    {
+      "author": "Briana Lungu",
+      "photo": "/reviews/briana-lungu.png",
+      "rating": 5,
+      "text": "Foarte profesional personalul",
+      "language": "ro",
+      "time": "2026-11-02"
+    },
+    {
+      "author": "crowdi",
+      "photo": "/reviews/crowdi.png",
+      "rating": 5,
+      "text": "very good",
+      "language": "en",
+      "time": "2026-11-01"
+    },
+    {
+      "author": "Stefan",
+      "photo": "/reviews/stefan.png",
+      "rating": 5,
+      "text": "Lucreaza foarte bine baietii, recomand cu incredere!",
+      "language": "ro",
+      "time": "2026-06-17"
+    },
+    {
+      "author": "Ivanescu Rares",
+      "photo": "/reviews/ivanescu-rares.png",
+      "rating": 5,
+      "text": "Lucreaza bine si preturile sunt corecte.",
+      "language": "ro",
+      "time": "2026-06-16"
+    },
+    {
+      "author": "Rareș Ciuta",
+      "photo": "/reviews/rares-ciuta.png",
+      "rating": 5,
+      "text": "Foarte flexibili si cooperativi, recomand!",
+      "language": "ro",
+      "time": "2026-06-15"
+    }
+  ]
+}

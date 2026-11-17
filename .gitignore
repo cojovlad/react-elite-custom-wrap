@@ -25,3 +25,5 @@ dist-ssr
 # Test output
 playwright-report
 test-results
+# Original studio photos (unblurred licence plates); public/work holds the web versions
+photos

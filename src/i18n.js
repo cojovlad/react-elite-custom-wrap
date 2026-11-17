@@ -92,9 +92,9 @@ export function captureStaticTranslations(root = document) {
   }
   const attributes = [];
   root
-    .querySelectorAll('[aria-label], [placeholder], [title]')
+    .querySelectorAll('[aria-label], [placeholder], [title], img[alt]')
     .forEach((element) => {
-      ['aria-label', 'placeholder', 'title'].forEach((name) => {
+      ['aria-label', 'placeholder', 'title', 'alt'].forEach((name) => {
         const key = element.getAttribute(name);
         if (key && Object.hasOwn(messages.ro, key))
           attributes.push({ element, name, key });

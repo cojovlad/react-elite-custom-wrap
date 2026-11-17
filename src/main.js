@@ -43,6 +43,8 @@ import { notify, translateToast } from './toast.js';
 import { initWhatsappFloat, scheduleWhatsappYield } from './whatsapp-float.js';
 import { initNavigation, translateNavigation } from './navigation.js';
 import { registerServiceWorker } from './service-worker-client.js';
+import { createWorkGallery } from './work-gallery.js';
+import { createReviews } from './reviews.js';
 import {
   initPaletteShowcase,
   paletteFilms,
@@ -115,6 +117,8 @@ const layout = createLayoutStability({
     renderLocalizedText(scope);
   },
 });
+const workGallery = createWorkGallery(layout);
+const reviews = createReviews();
 
 function restoreDesign() {
   const params = new URLSearchParams(window.location.search);
@@ -320,6 +324,8 @@ function renderLocalizedText(scope) {
   if (root.contains($('#request-estimate'))) renderRequestEstimate();
   renderPaletteText(scope);
   renderPricing(scope);
+  workGallery.render(scope);
+  reviews.render(scope);
 }
 
 // Keeps the active brand visible in a long, horizontally scrolling strip
