@@ -726,12 +726,14 @@
 
       <section class="brand-strip page-width" aria-label="Vehicle brands">
         <span>EVERY MARQUE.<br />ONE STANDARD.</span>
-        <p>Mercedes-Benz</p>
-        <p>BMW</p>
-        <p>Audi</p>
-        <p>Porsche</p>
-        <p>Range Rover</p>
-        <p>Lamborghini</p>
+        <div class="brand-names">
+          <p>Mercedes-Benz</p>
+          <p>BMW</p>
+          <p>Audi</p>
+          <p>Porsche</p>
+          <p>Range Rover</p>
+          <p>Lamborghini</p>
+        </div>
       </section>
       <section id="services" class="services page-width">
         <div class="section-head">
@@ -1224,6 +1226,13 @@
                 </p>
               </div>
               <ul class="price-lines"></ul>
+              <button
+                type="button"
+                class="price-lines-toggle"
+                aria-expanded="false"
+              >
+                All films and prices<span aria-hidden="true"></span>
+              </button>
               <p class="price-from"><span>From</span><strong></strong></p>
             </article>
             <article class="price-row" data-price-category="ppf">
@@ -1232,6 +1241,13 @@
                 <p>Invisible, self-healing protection for the whole body.</p>
               </div>
               <ul class="price-lines"></ul>
+              <button
+                type="button"
+                class="price-lines-toggle"
+                aria-expanded="false"
+              >
+                All films and prices<span aria-hidden="true"></span>
+              </button>
               <p class="price-from"><span>From</span><strong></strong></p>
             </article>
             <article class="price-row" data-price-category="ppf-color">
@@ -1240,6 +1256,13 @@
                 <p>A new colour and paint protection in a single film.</p>
               </div>
               <ul class="price-lines"></ul>
+              <button
+                type="button"
+                class="price-lines-toggle"
+                aria-expanded="false"
+              >
+                All films and prices<span aria-hidden="true"></span>
+              </button>
               <p class="price-from"><span>From</span><strong></strong></p>
             </article>
             <article class="price-row" data-price-category="ppf-front">
@@ -1251,6 +1274,13 @@
                 </p>
               </div>
               <ul class="price-lines"></ul>
+              <button
+                type="button"
+                class="price-lines-toggle"
+                aria-expanded="false"
+              >
+                All films and prices<span aria-hidden="true"></span>
+              </button>
               <p class="price-from"><span>From</span><strong></strong></p>
             </article>
           </div>
@@ -1265,43 +1295,6 @@
             Get your exact offer <span aria-hidden="true">&#8599;</span>
           </button>
         </div>
-      </section>
-      <section class="process page-width">
-        <div>
-          <p class="eyebrow">A CONSIDERED PROCESS</p>
-          <h2>From a thought.<br />To a <em>statement.</em></h2>
-        </div>
-        <ol>
-          <li>
-            <span>01</span>
-            <div>
-              <h3>Imagine it</h3>
-              <p>
-                Explore your vehicle, palette, and finish in our design studio.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span>02</span>
-            <div>
-              <h3>Make it precise</h3>
-              <p>
-                Discuss your vehicle and compare physical material samples
-                before deciding.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span>03</span>
-            <div>
-              <h3>Make it yours</h3>
-              <p>
-                Agree the scope, preparation, and installation details with the
-                studio.
-              </p>
-            </div>
-          </li>
-        </ol>
       </section>
       <section class="faq page-width">
         <div class="section-head">
@@ -1496,13 +1489,6 @@
             target="_blank"
             rel="noopener noreferrer"
             >Find our Cluj-Napoca studio on Google Maps &#8599;</a
-          ><a
-            href="https://search.google.com/local/writereview?placeid=ChIJwdTFXg0LSUcRJOha7a3XNB0"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Leave a Google review &#8599;</a
-          ><a href="mailto:elite.custom_cluj@yahoo.com"
-            >elite.custom_cluj@yahoo.com</a
           >
         </div>
       </section>
@@ -1514,17 +1500,12 @@
           ><span>ELITE<span class="wordmark-sub">CUSTOM WRAP</span></span></a
         >
         <p>Individuality. In every detail.</p>
-        <a
-          class="footer-whatsapp"
-          href="https://wa.me/40773239125"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-whatsapp
-          ><svg class="whatsapp-icon" aria-hidden="true" focusable="false">
-            <use href="#whatsapp-glyph"></use></svg
-          ><span>WhatsApp</span
-          ><span data-whatsapp-number>+40 773 239 125</span></a
-        >
+        <address class="footer-contact">
+          <a href="tel:+40773239125" data-whatsapp-number>+40 773 239 125</a
+          ><a href="mailto:elite.custom_cluj@yahoo.com"
+            >elite.custom_cluj@yahoo.com</a
+          >
+        </address>
       </div>
       <div class="footer-bottom">
         <span>&copy; <span id="year"></span> Elite Custom Wrap</span
@@ -1532,6 +1513,16 @@
         ><button id="credit-button" class="footer-credit" type="button">
           Website crafted by New Folder Solutions
         </button>
+      </div>
+      <div class="footer-legal">
+        <p id="company-legal" hidden></p>
+        <a href="/privacy.html">Privacy policy</a
+        ><a
+          href="https://anpc.ro/ce-este-sal/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >ANPC – SAL</a
+        >
       </div>
     </footer>
     <div id="whatsapp-float" class="whatsapp-float">
@@ -1732,10 +1723,12 @@
           Your request is emailed to the studio through FormSubmit, and WhatsApp
           opens with the same message. Just press Send there. A request is not a
           booking or a confirmed quote.
+          <a href="/privacy.html" target="_blank">Privacy policy</a>
         </p>
         <p class="privacy-note" data-email-mode="off">
           WhatsApp opens with your request prefilled. Just press Send there to
           deliver it. A request is not a booking or a confirmed quote.
+          <a href="/privacy.html" target="_blank">Privacy policy</a>
         </p>
         <button type="submit" class="button button-dark request-submit">
           Send request <span aria-hidden="true">&#8599;</span>

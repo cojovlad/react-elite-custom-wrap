@@ -112,7 +112,9 @@ export const chosenPricingSize = () => (chosen ? size : null);
 
 export function initPricing() {
   document.querySelectorAll('[data-price-category]').forEach((row) => {
-    row.querySelector('.price-lines').replaceChildren(
+    const list = row.querySelector('.price-lines');
+    list.id = `price-lines-${row.dataset.priceCategory}`;
+    list.replaceChildren(
       ...priceLines(row.dataset.priceCategory).map((line) => {
         const item = document.createElement('li');
         item.dataset.line = line.id;
@@ -122,6 +124,14 @@ export function initPricing() {
         return item;
       }),
     );
+    // On phones the full film list folds away behind this button.
+    const toggle = row.querySelector('.price-lines-toggle');
+    if (!toggle) return;
+    toggle.setAttribute('aria-controls', list.id);
+    toggle.addEventListener('click', () => {
+      const open = row.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
   });
   $('.price-sizes').addEventListener('click', (event) => {
     const button = event.target.closest('[data-price-size]');

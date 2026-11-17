@@ -8,3 +8,14 @@ export const CONTACT = {
   whatsappDisplay: '+40 773 239 125',
   email: 'elite.custom_cluj@yahoo.com',
 };
+
+// Legal company details required by Law 365/2002 (footer) and named as the
+// data controller in the privacy policy. Fill them in exactly as on the ONRC
+// registration certificate; the footer line stays hidden while legalName is
+// empty.
+export const COMPANY = {
+  legalName: '', // for example: 'Elite Custom Wrap SRL'
+  registration: '', // Trade Register number, for example: 'J12/1234/2024'
+  taxId: '', // CUI, for example: 'RO12345678'
+  address: '', // registered office, for example: 'Str. Exemplu 1, Cluj-Napoca'
+};

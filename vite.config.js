@@ -29,7 +29,9 @@ function seo(siteUrl) {
     configResolved(config) {
       outDir = resolve(config.root, config.build.outDir);
     },
-    transformIndexHtml(html) {
+    transformIndexHtml(html, ctx) {
+      // The SEO tags below describe the home page only.
+      if (!ctx.path.endsWith('/index.html') && ctx.path !== '/') return html;
       // FAQ rich results, generated from the visible FAQ so they never drift.
       const faq = html.match(/<section class="faq[\s\S]*?<\/section>/)?.[0];
       const questions = [
@@ -91,10 +93,13 @@ function seo(siteUrl) {
         (lang) =>
           `    <xhtml:link rel="alternate" hreflang="${lang}" href="${lang === 'en' ? `${base}/` : `${base}/?lang=${lang}`}"/>`,
       ).join('\n');
-      const urls = LANGUAGES.map(
-        (lang) =>
-          `  <url>\n    <loc>${lang === 'en' ? `${base}/` : `${base}/?lang=${lang}`}</loc>\n${alternates}\n    <changefreq>monthly</changefreq>\n  </url>`,
-      ).join('\n');
+      const urls = [
+        ...LANGUAGES.map(
+          (lang) =>
+            `  <url>\n    <loc>${lang === 'en' ? `${base}/` : `${base}/?lang=${lang}`}</loc>\n${alternates}\n    <changefreq>monthly</changefreq>\n  </url>`,
+        ),
+        `  <url>\n    <loc>${base}/privacy.html</loc>\n    <changefreq>yearly</changefreq>\n  </url>`,
+      ].join('\n');
       writeFileSync(
         resolve(outDir, 'sitemap.xml'),
         `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`,
@@ -145,22 +150,24 @@ function preloadTranslations() {
     apply: 'build',
     transformIndexHtml: {
       order: 'post',
-      handler: (html, { bundle }) =>
-        Object.values(bundle ?? {})
-          .filter(
-            (chunk) =>
-              chunk.type === 'chunk' &&
-              /[\\/]src[\\/]locales[\\/]/.test(chunk.facadeModuleId ?? ''),
-          )
-          .map((chunk) => ({
-            tag: 'link',
-            attrs: {
-              rel: 'modulepreload',
-              crossorigin: true,
-              href: `/${chunk.fileName}`,
-            },
-            injectTo: 'head',
-          })),
+      handler: (html, { bundle, path }) =>
+        path.endsWith('/index.html')
+          ? Object.values(bundle ?? {})
+              .filter(
+                (chunk) =>
+                  chunk.type === 'chunk' &&
+                  /[\\/]src[\\/]locales[\\/]/.test(chunk.facadeModuleId ?? ''),
+              )
+              .map((chunk) => ({
+                tag: 'link',
+                attrs: {
+                  rel: 'modulepreload',
+                  crossorigin: true,
+                  href: `/${chunk.fileName}`,
+                },
+                injectTo: 'head',
+              }))
+          : [],
     },
   };
 }
@@ -224,6 +231,12 @@ export default defineConfig(({ mode }) => {
     build: {
       // Three.js is split into its own lazily loaded chunk.
       chunkSizeWarningLimit: 800,
+      rollupOptions: {
+        input: {
+          main: resolve(process.cwd(), 'index.html'),
+          privacy: resolve(process.cwd(), 'privacy.html'),
+        },
+      },
     },
   };
 });

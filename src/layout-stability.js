@@ -25,7 +25,6 @@ const WIDTH_TARGETS = [
   '.contact-actions .button',
   '.contact-links a',
   '.footer-main > p',
-  '.footer-whatsapp',
   '.footer-credit',
   '.dialog-whatsapp > span',
   '.brief-success .button',

@@ -642,6 +642,8 @@ export function createCarScene(
   renderer.domElement.setAttribute('aria-hidden', 'true');
   container.append(renderer.domElement);
   const controls = new OrbitControls(camera, renderer.domElement);
+  // Phones: a vertical swipe scrolls the page, a sideways drag turns the car.
+  renderer.domElement.style.touchAction = 'pan-y';
   controls.enablePan = false;
   controls.enableDamping = true;
   controls.maxPolarAngle = Math.PI * 0.49;
@@ -1176,7 +1178,12 @@ export function createCarScene(
   renderer.domElement.addEventListener('pointerdown', pointerDown);
   renderer.domElement.addEventListener('pointerup', pointerUp);
   renderer.domElement.addEventListener('pointercancel', pointerCancel);
-
+  // The mouse wheel keeps scrolling the page; Ctrl + wheel (or a trackpad
+  // pinch) zooms the car.
+  const wheelGuard = (event) => {
+    if (!event.ctrlKey && !event.metaKey) event.stopPropagation();
+  };
+  container.addEventListener('wheel', wheelGuard, { capture: true });
   return {
     translateLoading,
     setVehicle(id) {
@@ -1223,6 +1230,7 @@ export function createCarScene(
       renderer.domElement.removeEventListener('pointerdown', pointerDown);
       renderer.domElement.removeEventListener('pointerup', pointerUp);
       renderer.domElement.removeEventListener('pointercancel', pointerCancel);
+      container.removeEventListener('wheel', wheelGuard, { capture: true });
       controls.removeEventListener('change', schedule);
       controls.removeEventListener('change', limitOrbit);
       controls.dispose();

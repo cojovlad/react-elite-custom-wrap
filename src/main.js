@@ -12,6 +12,7 @@ import {
 } from './i18n.js';
 import { createLayoutStability, SETTLE_MS } from './layout-stability.js';
 import { CONTACT } from './config.js';
+import { companyLine } from './company.js';
 import { FILM_MAKERS } from './films.js';
 import { MATERIALS, MATERIAL_GROUPS } from './materials.js';
 import {
@@ -738,6 +739,8 @@ initPricing();
 $('#language-select').value = getLocale();
 restoreDesign();
 $('#year').textContent = new Date().getFullYear();
+$('#company-legal').textContent = companyLine();
+$('#company-legal').hidden = !companyLine();
 document.querySelectorAll('[data-whatsapp-number]').forEach((element) => {
   element.textContent = CONTACT.whatsappDisplay;
 });

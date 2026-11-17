@@ -14,6 +14,8 @@ const YIELD_TO = [
   '.panel-footer',
   '.config-foot',
   '.service-card .text-link',
+  '.price-lines-toggle',
+  '.price-from',
   '.faq summary',
   '.contact-actions',
   '.footer',
@@ -54,8 +56,15 @@ function update() {
     lift = bottom - Math.min(...blocking.map((rect) => rect.top)) + gap;
   }
   const clear = lift <= MAX_LIFT && !blockers(lift).length;
-  float.style.setProperty('--lift', `${clear ? -lift : 0}px`);
-  float.classList.toggle('is-yielding', !clear);
+  // The contact section has its own WhatsApp button, so one is enough there.
+  const contact = $('.contact-section');
+  const atContact =
+    contact &&
+    contact.getBoundingClientRect().top <
+      document.documentElement.clientHeight * 0.85;
+  const shown = clear && !atContact;
+  float.style.setProperty('--lift', `${shown ? -lift : 0}px`);
+  float.classList.toggle('is-yielding', !shown);
 }
 
 export function scheduleWhatsappYield() {

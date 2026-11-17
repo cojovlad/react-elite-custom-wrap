@@ -177,6 +177,25 @@ test('price list follows the vehicle size', async ({ page }) => {
   await expect(page.locator('#price-estimate')).toHaveText('10.990 lei');
 });
 
+test('price list folds its films away on phones', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/?lang=ro');
+  const row = page.locator('[data-price-category=wrap]');
+  const lines = row.locator('.price-lines li');
+  const toggle = row.locator('.price-lines-toggle');
+  await expect(row.locator('[data-line="3m-2080"]')).toBeVisible();
+  await expect(lines.filter({ visible: true })).toHaveCount(1);
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(lines.filter({ visible: true })).toHaveCount(
+    await lines.count(),
+  );
+  await expect(
+    page.locator('[data-price-category=ppf-front] .price-lines'),
+  ).toBeHidden();
+});
+
 test('services section offers front PPF', async ({ page }) => {
   await page.goto('/?lang=ro');
   const card = page.locator('.service-card', { hasText: 'PPF frontal' });
@@ -288,4 +307,19 @@ test('signature palettes suggest finishes and load real films', async ({
   await card.click();
   await expect(page.locator('#hex-value')).toHaveText('#00A3D9');
   await expect(page.locator('#film-name')).toContainText('Miami Blue');
+});
+
+test('footer links to the privacy policy', async ({ page }) => {
+  await page.goto('/?lang=ro');
+  const link = page.locator('.footer-legal a[href="/privacy.html"]');
+  await expect(link).toHaveText('Politica de confidențialitate');
+  await expect(page.locator('#company-legal')).toBeHidden();
+  await link.click();
+  await expect(page).toHaveURL(/\/privacy\.html$/);
+  await expect(page.locator('#ro h1')).toHaveText(
+    'Politica de confidențialitate.',
+  );
+  await expect(page.locator('#ro [data-contact=email]').first()).toHaveText(
+    'elite.custom_cluj@yahoo.com',
+  );
 });

@@ -557,7 +557,7 @@ svg {
   display: block;
   width: 100%;
   height: 100%;
-  touch-action: none;
+  touch-action: pan-y;
 }
 .stage-actions {
   position: absolute;
@@ -1011,6 +1011,9 @@ svg {
   color: #9e9e92;
   white-space: nowrap;
 }
+.brand-names {
+  display: contents;
+}
 .services {
   padding-block: 95px;
 }
@@ -1021,13 +1024,11 @@ svg {
   gap: 30px;
   margin-bottom: 44px;
 }
-.section-head .eyebrow,
-.process .eyebrow {
+.section-head .eyebrow {
   color: #959689;
   margin-bottom: 23px;
 }
-.section-head h2,
-.process h2 {
+.section-head h2 {
   font-size: clamp(37px, 4vw, 62px);
   font-weight: 400;
   letter-spacing: -2.4px;
@@ -1440,51 +1441,6 @@ svg {
     transition: none;
   }
 }
-.process {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  padding-block: 92px;
-  border-bottom: 1px solid var(--line);
-}
-.process ol {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.process li {
-  display: flex;
-  gap: 28px;
-  padding: 23px 0;
-  border-bottom: 1px solid var(--line);
-}
-.process li:first-child {
-  padding-top: 0;
-}
-.process li:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-.process li > div {
-  flex: 1;
-  min-width: 0;
-}
-.process li > span {
-  font-size: 10px;
-  color: #8b8b7d;
-  padding-top: 5px;
-}
-.process h3 {
-  font-size: 20px;
-  font-weight: 400;
-  margin-bottom: 10px;
-}
-.process li p {
-  font-size: 12px;
-  line-height: 1.8;
-  color: #949488;
-  max-width: 350px;
-}
 .faq {
   padding-block: 80px;
 }
@@ -1693,6 +1649,11 @@ dialog textarea {
   color: #817b6b;
   margin: 2px 0 19px;
 }
+.privacy-note a {
+  color: #24251e;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .consult-dialog form > .button {
   width: 100%;
   font-size: 11px;
@@ -1877,8 +1838,7 @@ dialog textarea {
   .desktop-nav {
     display: none;
   }
-  .section-head h2,
-  .process h2 {
+  .section-head h2 {
     font-size: 46px;
   }
   .service-grid {
@@ -1912,9 +1872,6 @@ dialog textarea {
   }
   .palette-description > span {
     font-size: 9px;
-  }
-  .process {
-    gap: 35px;
   }
   .config-top-note {
     display: none;
@@ -2147,7 +2104,7 @@ dialog textarea {
   }
   .brand-strip {
     padding-block: 30px;
-    gap: 22px 26px;
+    gap: 16px;
   }
   .brand-strip > span {
     width: 100%;
@@ -2155,7 +2112,30 @@ dialog textarea {
     margin: 0;
     font-size: 7px;
   }
-  .brand-strip > span br {
+  .brand-names {
+    display: flex;
+    gap: 26px;
+    width: calc(100% + 36px);
+    margin-inline: -18px;
+    padding-inline: 18px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 18px,
+      #000 calc(100% - 44px),
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 18px,
+      #000 calc(100% - 44px),
+      transparent
+    );
+  }
+  .brand-names::-webkit-scrollbar {
     display: none;
   }
   .brand-strip p {
@@ -2166,16 +2146,14 @@ dialog textarea {
   }
   .section-head {
     grid-template-columns: minmax(0, 1fr);
-    gap: 23px;
-    margin-bottom: 30px;
+    gap: 14px;
+    margin-bottom: 26px;
   }
-  .section-head .eyebrow,
-  .process .eyebrow {
+  .section-head .eyebrow {
     font-size: 8px;
     margin-bottom: 18px;
   }
-  .section-head h2,
-  .process h2 {
+  .section-head h2 {
     font-size: 42px;
     letter-spacing: -1.6px;
   }
@@ -2183,23 +2161,36 @@ dialog textarea {
     font-size: 11px;
   }
   .service-grid {
-    grid-template-columns: 1fr;
-    gap: 0;
+    display: flex;
+    gap: 14px;
+    margin-inline: -18px;
+    padding: 0 18px 4px;
+    scroll-padding-inline: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    border-top: 0;
   }
-  .service-card {
-    padding: 25px 0;
-    border-bottom: 1px solid var(--line);
+  .service-grid::-webkit-scrollbar {
+    display: none;
   }
-  .service-card:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
+  .services .service-grid .service-card {
+    flex: 0 0 78vw;
+    max-width: 330px;
+    scroll-snap-align: start;
+    padding: 20px 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: linear-gradient(180deg, #ffffff06, transparent 60%);
   }
   .service-art {
-    height: 150px;
-    margin-block: 10px 18px;
+    height: 112px;
+    margin-block: 6px 14px;
   }
   .service-card h3 {
-    font-size: 21px;
+    font-size: 20px;
+    margin-bottom: 12px;
   }
   .service-card p {
     font-size: 12px;
@@ -2231,20 +2222,6 @@ dialog textarea {
     font-size: 22px;
   }
   .palette-description > span {
-    font-size: 11px;
-  }
-  .process {
-    grid-template-columns: 1fr;
-    padding-block: 58px;
-    gap: 37px;
-  }
-  .process li {
-    padding-block: 20px;
-  }
-  .process h3 {
-    font-size: 19px;
-  }
-  .process li p {
     font-size: 11px;
   }
   .faq {
@@ -2649,27 +2626,155 @@ dialog textarea {
   font-size: inherit;
   font-weight: 600;
 }
-.footer-whatsapp {
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 4px 22px;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  color: #b5b2a8;
+}
+.footer-contact a {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   min-height: 44px;
-  padding: 0 16px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.footer-contact a + a::before {
+  content: '';
+  width: 1px;
+  height: 11px;
+  margin-right: 22px;
+  background: var(--line);
+}
+.footer-contact a:hover,
+.footer-contact a:focus-visible {
+  color: var(--bone);
+}
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 22px;
+  margin-top: -10px;
+  font-size: 9px;
+  color: #8f9086;
+}
+.footer-legal p {
+  flex: 1 1 100%;
+  line-height: 1.7;
+}
+.footer-legal a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  transition: color 0.2s;
+}
+.footer-legal a:hover,
+.footer-legal a:focus-visible {
+  color: var(--bone);
+}
+/* Privacy policy page */
+.legal-page .header {
+  height: 84px;
+}
+.legal-languages {
+  display: flex;
+  gap: 20px;
   font-size: 11px;
-  background: var(--surface);
-  transition:
-    border-color 0.2s,
-    background 0.2s;
-}
-.footer-whatsapp:hover {
-  border-color: #25d36680;
-  background: var(--surface-2);
-}
-.footer-whatsapp [data-whatsapp-number] {
   color: #b5b2a8;
-  letter-spacing: 0.4px;
+}
+.legal-languages a {
+  padding-block: 12px;
+}
+.legal-languages a:hover {
+  color: var(--bone);
+}
+.legal {
+  max-width: 760px;
+  padding-block: 70px 90px;
+}
+.legal article + article {
+  margin-top: 90px;
+  padding-top: 70px;
+  border-top: 1px solid var(--line);
+}
+.legal .eyebrow {
+  color: #959689;
+  margin-bottom: 22px;
+}
+.legal h1 {
+  font-size: clamp(38px, 6vw, 62px);
+  font-weight: 400;
+  letter-spacing: -2px;
+  line-height: 1.07;
+  margin: 0 0 28px;
+}
+.legal h1 em {
+  font-family: var(--serif);
+}
+.legal h2 {
+  font-size: 19px;
+  font-weight: 400;
+  margin: 44px 0 14px;
+}
+.legal p,
+.legal li {
+  font-size: 13px;
+  line-height: 1.85;
+  color: #a5a398;
+}
+.legal ul {
+  padding-left: 18px;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.legal .legal-company {
+  list-style: none;
+  padding: 0;
+  margin-top: 14px;
+  gap: 2px;
+}
+.legal .legal-lead {
+  font-size: 15px;
+  color: #d4cfc3;
+}
+.legal a {
+  color: var(--bone);
+  text-decoration: underline;
+  text-decoration-color: #e8e2d659;
+  text-underline-offset: 3px;
+}
+.legal .legal-back {
+  display: inline-flex;
+  gap: 8px;
+  margin-top: 70px;
+  font-size: 12px;
+  text-decoration: none;
+}
+@media (max-width: 600px) {
+  .legal-page .header {
+    height: 72px;
+    padding: 0 18px;
+  }
+  .legal {
+    padding-block: 44px 64px;
+  }
+  .legal h1 {
+    font-size: 38px;
+    letter-spacing: -1.4px;
+  }
+  .legal h2 {
+    font-size: 17px;
+    margin-top: 36px;
+  }
+  .legal p,
+  .legal li {
+    font-size: 12px;
+  }
 }
 .footer-credit {
   font-size: 9px;
@@ -2981,8 +3086,15 @@ dialog input:invalid:not(:placeholder-shown):not(:focus) {
   .contact-actions .whatsapp-cta {
     justify-content: flex-start;
   }
-  .footer-whatsapp {
+  .footer-contact {
+    flex-wrap: wrap;
+    justify-content: center;
     font-size: 10px;
+  }
+  .footer-legal {
+    justify-content: center;
+    text-align: center;
+    margin-top: -6px;
   }
   .credit-dialog h2 {
     font-size: 32px;
@@ -3274,6 +3386,9 @@ dialog input:invalid:not(:placeholder-shown):not(:focus) {
   color: #24251e;
   overflow-wrap: anywhere;
 }
+.price-lines-toggle {
+  display: none;
+}
 @media (max-width: 1150px) {
   .price-board {
     grid-template-columns: 1fr;
@@ -3321,9 +3436,71 @@ dialog input:invalid:not(:placeholder-shown):not(:focus) {
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
       'head from'
-      'lines lines';
+      'lines lines'
+      'toggle toggle';
     gap: 18px 20px;
     padding: 24px 0;
+  }
+  /* Collapsed: only the film picked in the studio stays visible. */
+  .price-row:not(.is-open) .price-lines li:not(.is-current),
+  .price-row:not(.is-open) .price-lines:not(:has(.is-current)) {
+    display: none;
+  }
+  .price-row:not(.is-open) .price-lines li.is-current {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .price-row:not(.is-open):not(:has(.is-current)) {
+    grid-template-areas:
+      'head from'
+      'toggle toggle';
+  }
+  .price-row:has(.price-lines-toggle) {
+    padding-bottom: 6px;
+  }
+  .price-lines-toggle {
+    grid-area: toggle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    border-top: 1px dotted #45443f;
+    background: none;
+    color: #b5b2a8;
+    font: inherit;
+    font-size: 10px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .price-lines-toggle:hover,
+  .price-lines-toggle:focus-visible {
+    color: var(--bone);
+  }
+  .price-lines-toggle > span {
+    position: relative;
+    width: 11px;
+    height: 11px;
+    flex: none;
+  }
+  .price-lines-toggle > span::before,
+  .price-lines-toggle > span::after {
+    content: '';
+    position: absolute;
+    inset: 5px 0 auto;
+    height: 1px;
+    background: currentColor;
+    transition: transform 0.25s;
+  }
+  .price-lines-toggle > span::after {
+    transform: rotate(90deg);
+  }
+  .price-row.is-open .price-lines-toggle > span::after {
+    transform: rotate(0deg);
   }
   .price-from {
     min-width: 0;

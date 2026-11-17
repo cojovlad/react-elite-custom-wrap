@@ -144,11 +144,30 @@
 - All Instagram references removed.
 - Tests: 41 unit, 12 e2e scenarios.
 
+## Less clutter
+
+- Removed the "A considered process" section (its three steps repeated what the studio, price list and contact already say).
+- Phones: the services are a swipe carousel of cards instead of five stacked blocks; the brand names sit on one sliding row; each price row shows only the film picked in the studio, with "All films and prices" to unfold the full list.
+- WhatsApp appears once per screen: the floating button steps aside at the contact section (which has its own WhatsApp button). The footer shows the phone number and the email side by side, and the duplicate "Leave a Google review" link left the contact section (it stays next to the reviews).
+- Phone page about 20% shorter (≈12,100 px → ≈9,700 px).
+- Phones: a vertical swipe over the 3D car now scrolls the page and a sideways drag turns the car. Before, the car caught every swipe, so it was hard to scroll past it.
+- Computers: the mouse wheel over the 3D car scrolls the page; Ctrl + wheel (or a trackpad pinch) zooms the car.
+- Phones: service cards and the gap under section titles are more compact.
+- Footer email sits next to the phone number.
+
+## Ready for launch
+
+- Privacy policy page (`/privacy.html`, Romanian and English; opens in English for visitors not using Romanian): what the form collects, why (GDPR art. 6(1)(b) and (c)), who receives it (FormSubmit, the mailbox provider, WhatsApp if chosen, the host), retention, what stays in the browser (language, last design, 3D model cache, Google review photos) and the visitor's rights (ANSPDCP). Linked from the footer and under the request form. Listed in the sitemap.
+- Footer: link to ANPC – SAL (alternative resolution of consumer disputes) and a line for the legal company details (Law 365/2002) that appears once `COMPANY` in `src/config.js` is filled in. The same details then appear in the privacy policy.
+- `.env.example` documents `SITE_URL`; `.env` is no longer committed.
+- Tests: 43 unit, 14 e2e scenarios.
+
 ## Still to do
 
-- The first request sends a FormSubmit activation email to `elite.custom_cluj@yahoo.com`; click "Activate Form" in it, otherwise emails are not delivered (WhatsApp works regardless).
-- Add the real domain (`SITE_URL` for canonical URL, sitemap, Open Graph image), then submit the sitemap in Google Search Console and link the site from the Google Business Profile.
+- Fill in `COMPANY` in `src/config.js` (legal name, Trade Register no., CUI, registered office) exactly as on the ONRC certificate.
+- Once the site is live, send one test request from it: FormSubmit then emails `elite.custom_cluj@yahoo.com` an activation link; click "Activate Form", otherwise emails are not delivered (WhatsApp works regardless).
+- Add the real domain: copy `.env.example` to `.env` (or set it on the host) with `SITE_URL`, rebuild, then submit `/sitemap.xml` in Google Search Console and link the site from the Google Business Profile.
 - Add the street address, opening hours and coordinates to the structured data.
-- Buy/confirm licences for the NC/SA models listed in `attributions.json`.
+- 8 models are kept by choice although their licence does not allow commercial use (CC BY-NC: Mercedes A 45 AMG, BMW M4 G82, Peugeot 3008; CC BY-NC-SA: Ford Fiesta XR2i, Fiat 500 2016; Sketchfab Standard: VW Golf GTI Mk8, ID.3, ID.4). Before launch, ask the authors for permission or buy a commercial licence, or replace them.
 - More Romanian-popular models (Skoda, more Dacia, VW SUVs, Opel Astra, Toyota RAV4).
 - Review the changes, then commit and push (nothing committed yet).
