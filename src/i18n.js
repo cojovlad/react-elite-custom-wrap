@@ -102,13 +102,16 @@ export function captureStaticTranslations(root = document) {
     });
   const description = root.querySelector('meta[name="description"]');
   const descriptionKey = description.content;
-  const titleKey = root.title;
+  // The early title script in index.html keeps the English key in data-key.
+  const titleElement = root.querySelector('title');
+  const titleKey = titleElement?.dataset.key ?? root.title;
   // An optional scope limits the update to one subtree, without touching the
-  // document language, for layout measurement.
-  return (scope = null) => {
+  // document language, for layout measurement. Measuring renders every
+  // locale, so it passes metadata: false to keep the tab title steady.
+  return (scope = null, { metadata = true } = {}) => {
     const inScope = (node) => !scope || scope.contains(node);
-    if (!scope) {
-      root.documentElement.lang = locale;
+    if (!scope) root.documentElement.lang = locale;
+    if (!scope && metadata) {
       root.title = t(titleKey);
       description.content = t(descriptionKey);
       // Each ?lang= page is its own canonical, so hreflang alternates count.

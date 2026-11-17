@@ -114,7 +114,7 @@ const layout = createLayoutStability({
   getLocale,
   render: (locale, scope) => {
     setLocale(locale, { persist: false });
-    translateStatic(scope);
+    translateStatic(scope, { metadata: false });
     renderLocalizedText(scope);
   },
 });

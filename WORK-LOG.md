@@ -170,6 +170,7 @@
 - Metallic and pearl films: the flakes melt into a fine sheen at a distance instead of looking like coarse sand. Diamond films keep their glitter.
 - Carbon: a real 2×2 twill weave whose fibres brighten and darken as the car turns, instead of grey noise.
 - Brushed metal: a stretched (anisotropic) highlight along the brush direction, like real brushed aluminium.
+- The browser tab title appears directly in the visitor's language (a tiny script in the page head, allowed by its hash in the security policy) and no longer cycles through every language while the layout is measured.
 
 ## Still to do
 

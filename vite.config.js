@@ -114,6 +114,7 @@ function seo(siteUrl) {
 
 // Content Security Policy for the built site only (the dev server needs inline
 // scripts for hot reload). blob:/wasm are required by the 3D model decoders.
+// The early title script is allowed by its hash.
 export const CSP = [
   "default-src 'self'",
   "script-src 'self' 'wasm-unsafe-eval'",
@@ -128,17 +129,61 @@ export const CSP = [
   "base-uri 'self'",
 ].join('; ');
 
-function security() {
+function security(inlineScripts) {
+  const hashes = inlineScripts.map(
+    (script) =>
+      `'sha256-${createHash('sha256').update(script).digest('base64')}'`,
+  );
+  const csp = CSP.replace(
+    "script-src 'self'",
+    ["script-src 'self'", ...hashes].join(' '),
+  );
   return {
     name: 'elite-security',
     apply: 'build',
     transformIndexHtml: () => [
       {
         tag: 'meta',
-        attrs: { 'http-equiv': 'Content-Security-Policy', content: CSP },
+        attrs: { 'http-equiv': 'Content-Security-Policy', content: csp },
         injectTo: 'head-prepend',
       },
     ],
+  };
+}
+
+// The static title is English (the translation key). Without this, visitors
+// using another language would see the tab switch from English to their
+// language once the app loads. Same language choice as src/i18n.js.
+function earlyTitleScript(root) {
+  const html = readFileSync(resolve(root, 'index.html'), 'utf8');
+  const key = html
+    .match(/<title>([\s\S]*?)<\/title>/)[1]
+    .replace(/&amp;/g, '&')
+    .trim();
+  const titles = Object.fromEntries(
+    LANGUAGES.map((lang) => [
+      lang,
+      lang === 'en'
+        ? key
+        : (JSON.parse(
+            readFileSync(resolve(root, `src/locales/${lang}.json`), 'utf8'),
+          )[key] ?? key),
+    ]),
+  );
+  const json = JSON.stringify(titles).replace(/</g, '\\u003c');
+  return `(()=>{const t=${json},s=(v)=>{v=typeof v=="string"?v.toLowerCase().split(/[-_]/)[0]:"";return Object.hasOwn(t,v)?v:""};let l;try{l=localStorage.getItem("elite-wrap-language-v1")}catch{}const c=s(new URLSearchParams(location.search).get("lang"))||s(l)||[...(navigator.languages||[]),navigator.language].map(s).find(Boolean)||"en",e=document.querySelector("title");e.dataset.key=e.textContent;document.title=t[c];document.documentElement.lang=c})()`;
+}
+
+function earlyTitle(script) {
+  return {
+    name: 'elite-early-title',
+    transformIndexHtml(html, ctx) {
+      if (!ctx.path.endsWith('/index.html') && ctx.path !== '/') return html;
+      return html.replace(
+        '</title>',
+        `</title>\n    <script>${script}</script>`,
+      );
+    },
   };
 }
 
@@ -221,9 +266,11 @@ function serviceWorker() {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  const titleScript = earlyTitleScript(process.cwd());
   return {
     plugins: [
-      security(),
+      security([titleScript]),
+      earlyTitle(titleScript),
       seo(env.SITE_URL ?? ''),
       preloadTranslations(),
       serviceWorker(),

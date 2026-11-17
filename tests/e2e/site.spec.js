@@ -20,6 +20,48 @@ test('loads in Romanian and removes the skeleton', async ({ page }) => {
   await expect(page.locator('#swatches .swatch').first()).toBeAttached();
 });
 
+test('shows the tab title in the visitor language from the start', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    window.__titles = [];
+    window.__titleBeforeBody = null;
+    const { get, set } = Object.getOwnPropertyDescriptor(
+      Document.prototype,
+      'title',
+    );
+    Object.defineProperty(Document.prototype, 'title', {
+      configurable: true,
+      get,
+      set(value) {
+        window.__titleBeforeBody ??= !document.body;
+        window.__titles.push(value);
+        set.call(this, value);
+      },
+    });
+  });
+  const violations = [];
+  page.on('console', (message) => {
+    if (/Content Security Policy/i.test(message.text()))
+      violations.push(message.text());
+  });
+  await page.goto('/?lang=ro');
+  await expect(page.locator('#page-skeleton')).toHaveCount(0);
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(500);
+  const { titles, beforeBody } = await page.evaluate(() => ({
+    titles: window.__titles,
+    beforeBody: window.__titleBeforeBody,
+  }));
+  expect(violations).toEqual([]);
+  // Set while the head is parsed, so English never reaches the tab.
+  expect(beforeBody).toBe(true);
+  // Measuring the layout in every language must not touch the title.
+  expect(new Set(titles)).toEqual(
+    new Set(['Colantare auto și folie PPF în Cluj-Napoca | Elite Custom Wrap']),
+  );
+});
+
 test('changes brand, colour and material', async ({ page }) => {
   await page.goto('/?lang=ro');
   await page.locator('[data-brand="Audi"]').click();
